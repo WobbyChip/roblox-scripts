@@ -1,14 +1,16 @@
 local xrayEnabled = false
 
-local function xray(z, xrayEnabled)
-    for _, i in pairs(z:GetChildren()) do
-        if i:IsA("BasePart") and not i.Parent:FindFirstChild("Humanoid") and not i.Parent.Parent:FindFirstChild("Humanoid") then
-            i.LocalTransparencyModifier = xrayEnabled
+
+local function xray(ws, xrayEnabled)
+    for _, c in pairs(ws:GetChildren()) do
+        if c:IsA("BasePart") and not c.Parent:FindFirstChild("Humanoid") and not c.Parent.Parent:FindFirstChild("Humanoid") then
+            c.LocalTransparencyModifier = xrayEnabled
         end
 
-        xray(i, xrayEnabled)
+        xray(c, xrayEnabled)
     end
 end
+
 
 game:GetService("UserInputService").InputBegan:connect(function (input)
     if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.Z then
