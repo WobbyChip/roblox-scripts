@@ -2,7 +2,7 @@ local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobby
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
 
 local GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
-local gui = GUIData[0]
+local gui = GUIData[1]
 
 --GUI
 local Features = gui:create("Container", {
