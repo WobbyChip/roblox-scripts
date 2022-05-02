@@ -949,7 +949,7 @@ end)
 
 --Render Options
 local screenscale = 250
-local opacity = 1
+local opacity = 0.75
 local backcolor = Color3.fromRGB(40, 40, 40)
 
 
