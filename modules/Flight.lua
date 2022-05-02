@@ -1,4 +1,4 @@
-local _flight = (function()
+local _Flight = (function()
 	local RunService = game:GetService("RunService")
 	local UserInputService = game:GetService("UserInputService")
 	local Players = game:GetService("Players")
@@ -10,7 +10,6 @@ local _flight = (function()
 	module.Options = {
 		Speed = 5,
 		Smoothness = 0.2,
-        Enabled = false,
 	}
 
 	local lib, connections = {}, {}
@@ -43,9 +42,8 @@ local _flight = (function()
 		end
 	end
 
-	module.flyToggle = function()
-        module.Options.Enabled = not module.Options.Enabled
-		if not module.Options.Enabled then flyEnd() return end
+	module.flyStart = function(enabled)
+        if not enabled then flyEnd() return end
 		local dir = {w = false, a = false, s = false, d = false}
 		local cf = Instance.new("CFrameValue")
 
@@ -134,9 +132,4 @@ local _flight = (function()
 	return module
 end)()
 
-
-game:GetService("UserInputService").InputBegan:connect(function (input)
-    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.X then
-        _flight.flyToggle()
-    end
-end)
+return _Flight
