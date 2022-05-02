@@ -1,3 +1,5 @@
+--Literally stolen from OpenGui
+
 local GUIData = (function()
     -- Variables
     local screenGui = (script:FindFirstChild("ScreenGui")) or game:GetObjects("rbxassetid://2718157603")[1]:FindFirstChild("ScreenGui", true)
@@ -941,6 +943,22 @@ pcall(function()
         local LUAData = HttpService:JSONDecode(JSONData)
         GUIData[2].Options = LUAData.Options
         GUIData[2].Hotkeys = LUAData.Hotkeys
+    end
+end)
+
+
+--Render UI
+game:GetService("RunService").RenderStepped:Connect(function()
+    for _, frame in pairs(GUIData[3]:GetChildren()) do
+        if frame:IsA("Frame") then
+            frame.Size = UDim2.new(0, screenscale, 0, frame.Size.Y.Offset)
+
+            frame.BackgroundTransparency = opacity
+            frame.OptionsFrame.BackgroundTransparency = opacity
+
+            frame.BackgroundColor3 = backcolor
+            frame.OptionsFrame.BackgroundColor3 = backcolor
+        end
     end
 end)
 
