@@ -946,6 +946,7 @@ pcall(function()
     end
 end)
 
+
 --Render Options
 local screenscale = 250
 local opacity = 1
