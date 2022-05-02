@@ -946,6 +946,11 @@ pcall(function()
     end
 end)
 
+--Render Options
+local screenscale = 250
+local opacity = 1
+local backcolor = Color3.new()
+
 
 --Render UI
 game:GetService("RunService").RenderStepped:Connect(function()
