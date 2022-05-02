@@ -55,7 +55,7 @@ local Xray = Features.self:create("Toggle", {
 })
 
 local XrayTransparency = Xray.self:create("Number", {
-    Name = "Speed",
+    Name = "Transparency",
     Default = 0.5,
     Min = 0,
     Max = 1,
@@ -63,5 +63,6 @@ local XrayTransparency = Xray.self:create("Number", {
     Hint = "Xray transparency",
     Callback = function(value)
         _Xray.Options.Transparency = value
+        _Xray.update()
     end,
 })

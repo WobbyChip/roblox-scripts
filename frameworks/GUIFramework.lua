@@ -950,7 +950,7 @@ end)
 --Render Options
 local screenscale = 250
 local opacity = 1
-local backcolor = Color3.new()
+local backcolor = Color3.fromRGB(40, 40, 40)
 
 
 --Render UI
