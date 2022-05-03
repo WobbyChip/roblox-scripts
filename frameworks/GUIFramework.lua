@@ -11,9 +11,13 @@ local GUIData = (function()
     local Execute = Opt.Execute
     local Mode = Opt.Mode
     local Number = Opt.Number
+    local TextBox = Opt.TextBox
     local Toggle = Opt.Toggle
     local Mods = screenGui.Mods
     local ModLabel = Mods.Example
+
+    print("TextBox")
+    print(TextBox)
 
     local TextService = game:GetService("TextService")
     local UserInputService = game:GetService("UserInputService")
@@ -32,6 +36,7 @@ local GUIData = (function()
     Execute.Parent = nil
     Mode.Parent = nil
     Number.Parent = nil
+    TextBox.Parent = nil
     Toggle.Parent = nil
     ModLabel.Parent = nil
 
@@ -823,7 +828,6 @@ local GUIData = (function()
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
-        guiObject.Label.MouseButton1Down:Connect(function() createValue() end)
 
         guiData.ySize = 0
         guiData.Open = false
@@ -832,6 +836,10 @@ local GUIData = (function()
         gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
+
+        local input = self.create("TextBox", {
+            Default = "Location 1",
+        })
 
         return guiObject
     end
