@@ -828,10 +828,8 @@ local GUIData = (function()
 
         local createValue = function()
             if data.Callback then
-                print(dataArray.TextBox)
-                print(dataArray.TextBox.Text)
-                local text = dataArray.TextBox.Text:sub(20)
-                data.Callback(text)
+                local text = dataArray.TextBox.Text:sub(1, 20)
+                if text == "" then data.Callback(text) end
             end
         end
 
@@ -845,7 +843,6 @@ local GUIData = (function()
         guiData.Open = false
         guiData.baseColor = colors.TextDisabled
 
-        gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
