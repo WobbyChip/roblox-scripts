@@ -68,19 +68,3 @@ local XrayTransparency = Xray.self:create("Number", {
 })
 
 
---GUI - Teleport
-local Teleport = gui:create("Container", {
-    Name = "Teleports",
-})
-
-
---Teleports list
-local TeleportList = Teleport.self:create("Box", {
-    Name = "Teleports",
-})
-
-
---Create new teleport
-local TeleportNew = Teleport.self:create("Box", {
-    Name = "Create New",
-})
