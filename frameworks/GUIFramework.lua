@@ -17,7 +17,7 @@ local GUIData = (function()
     local ModLabel = Mods.Example
 
     print("TextBox")
-    print(unpack(Number))
+    print(unpack(Opt))
     print(TextBox)
 
     local TextService = game:GetService("TextService")
