@@ -603,12 +603,13 @@ local GUIData = (function()
     end
 
     function lib.TextBox(data, dataArray)
-        local number = lib.Number(data, dataArray);
-        print(number)
-        number:FindFirstChild("Label", true) = nil
-        number:FindFirstChild("ValueFrame", true) = nil
-        number:FindFirstChild("Indicator", true) = nil
-        number:FindFirstChild("OptionsFrame", true) = nil
+        local numObject = Number:Clone()
+        local guiData = {}
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextEnabled
+        gui:createList(numObject, guiData)
 
         local guiObject = Instance.new("TextBox")
         guiObject.Size = UDim2.new(1, -15, 1, 0)
