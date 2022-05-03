@@ -604,10 +604,10 @@ local GUIData = (function()
 
     function lib.TextBox(data, dataArray)
         local numObject = Number:Clone()
-        numObject.Label = nil
-        numObject.OptionsFrame = nil
-        numObject.Indicator = nil
-        numObject.ValueFrame = nil
+        numObject.Label.Visible = false;
+        numObject.OptionsFrame.Visible = false;
+        numObject.Indicator.Visible = false;
+        numObject.ValueFrame.Visible = false;
         numObject.Parent = dataArray.Object.OptionsFrame
 
         local guiData = {}
