@@ -66,5 +66,3 @@ local XrayTransparency = Xray.self:create("Number", {
         _Xray.update()
     end,
 })
-
-
