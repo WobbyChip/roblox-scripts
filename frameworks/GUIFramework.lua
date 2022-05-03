@@ -50,6 +50,17 @@ local GUIData = (function()
         writefile("WobbyChip/GUI.json", JSONData)
     end)
 
+    pcall(function()
+        local JSONData = readfile("WobbyChip/GUI.json")
+        if JSONData then
+            local LUAData = HttpService:JSONDecode(JSONData)
+            saveData.Options = LUAData.Options
+            saveData.Hotkeys = LUAData.Hotkeys
+            print(saveData.Options)
+            print(saveData.Hotkeys)
+        end
+    end)
+
     -- Color Functions
     local color = {}
     local colors = {
@@ -992,6 +1003,7 @@ local GUIData = (function()
     function lib.Container(data, dataArray)
         local guiObject = Container:Clone()
 
+        print("Container -> ", saveData.Options[data.ID].Position)
         guiObject.Position = gui:unpack(saveData.Options[data.ID].Position, "UDim2") or UDim2.new(0, 3, 0, 3 + gui:getn(settingsArray[2]) * 38)
 
         local guiData = {}
@@ -1089,19 +1101,9 @@ local GUIData = (function()
 end)()
 
 
-pcall(function()
-    local JSONData = readfile("WobbyChip/GUI.json")
-    if JSONData then
-        local LUAData = HttpService:JSONDecode(JSONData)
-        GUIData[2].Options = LUAData.Options
-        GUIData[2].Hotkeys = LUAData.Hotkeys
-    end
-end)
-
-
 --Render Options
 local screenscale = 250
-local opacity = 0.5
+local opacity = 0.75
 local backcolor = Color3.fromRGB(40, 40, 40)
 
 
