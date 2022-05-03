@@ -844,7 +844,7 @@ local GUIData = (function()
 
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
         guiObject.Label.MouseButton1Down:Connect(function() createValue() end)
