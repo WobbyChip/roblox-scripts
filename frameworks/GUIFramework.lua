@@ -890,7 +890,7 @@ local GUIData = (function()
         end)
 
         gui:setText(guiObject.Label, data.Name)
-        if dataArray.Object.OptionsFrame then guiObject.Parent = dataArray.Object.OptionsFrame end
+        if dataArray.Object then if dataArray.Object.OptionsFrame then guiObject.Parent = dataArray.Object.OptionsFrame end end
         return guiObject
     end
 
