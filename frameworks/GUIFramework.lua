@@ -809,18 +809,6 @@ local GUIData = (function()
         modFrame.Visible = false
         gui:setText(modFrame, data.Name)
 
-        guiObject.Name = data.Name
-
-        guiObject.MouseEnter:Connect(function()
-            gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
-        end)
-
-        guiObject.MouseLeave:Connect(function()
-            gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
-        end)
-
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
-
         guiData.ySize = 0
         guiData.Open = false
         guiData.baseColor = colors.TextDisabled
