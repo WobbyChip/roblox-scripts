@@ -595,7 +595,7 @@ local GUIData = (function()
         guiData.Open = false
         guiData.baseColor = colors.TextEnabled
 
-        --gui:createList(guiObject, guiData)
+        gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
@@ -612,12 +612,6 @@ local GUIData = (function()
         guiObject.ClearTextOnFocus = false
         guiObject.TextWrapped = false
         guiObject.TextTruncate = 1
-
-        guiData.ySize = 0
-        guiData.Open = false
-        guiData.baseColor = colors.TextEnabled
-
-        gui:createList(guiObject, guiData)
         return guiObject
     end
 
@@ -860,7 +854,7 @@ local GUIData = (function()
         local selfArray = {dataArray, objectArray, create = gui.create, callback = data.Callback}
         dataArray.Name = data.Name
         dataArray.Data = data
-        dataArray.Object = lib[guiType](data, dataArray) --Replace this
+        dataArray.Object = lib["TextBox"](data, dataArray)
         dataArray.self = selfArray
 
         if data.Hint then
@@ -871,7 +865,6 @@ local GUIData = (function()
         settingsArray[1][data.Name] = selfArray
         settingsArray[2][data.Name] = dataArray.Object
         dataArray.Object.Parent = settingsArray[1].Object:FindFirstChild("OptionsFrame") or settingsArray[1].Object
-
         return guiObject
     end
 
