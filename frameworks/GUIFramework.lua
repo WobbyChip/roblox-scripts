@@ -604,9 +604,13 @@ local GUIData = (function()
 
     function lib.TextBox(data, dataArray)
         local numObject = Number:Clone()
+        numObject.Label = nil
+        numObject.OptionsFrame = nil
+        numObject.Indicator = nil
+        numObject.ValueFrame = nil
         numObject.Parent = dataArray.Object.OptionsFrame
-        local guiData = {}
 
+        local guiData = {}
         guiData.ySize = 0
         guiData.Open = false
         guiData.baseColor = colors.TextEnabled
@@ -825,6 +829,7 @@ local GUIData = (function()
 
     function lib.Input(data, dataArray)
         local guiObject = Toggle:Clone()
+        guiObject.Dropdown.Visible = true
         local guiData = {}
 
         local modFrame = ModLabel:Clone()
@@ -834,11 +839,9 @@ local GUIData = (function()
         gui:setText(modFrame, data.Name)
 
         local createValue = function()
-            local Value = data.Default
-            --Add input box and gather value from it and pass to callback
-
             if data.Callback then
-                data.Callback(Value)
+                local text = dataArray.TextBox.Text:sub(20)
+                data.Callback(text)
             end
         end
 
@@ -986,7 +989,7 @@ local GUIData = (function()
         end
 
         if guiType == "Input" then
-            lib.TextBox(data, dataArray)
+            dataArray.TextBox = lib.TextBox(data, dataArray)
         end
 
         if data.Hint then
