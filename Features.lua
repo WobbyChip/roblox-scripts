@@ -71,10 +71,6 @@ local XrayTransparency = Xray.self:create("Number", {
 
 
 --GUI - Teleports
-function teleportTo(value)
-    print(value)
-end
-
 local Teleports = gui:create("Container", {
     Name = "Teleports",
 })
@@ -83,7 +79,9 @@ local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
     HolderName = "Teleports",
     SaveId = game.PlaceId,
-    Callback = teleportTo,
+    Callback = function(value)
+        print(value)
+    end,
 })
 
 local TeleportsNew = Teleports.self:create("Input", {
@@ -96,7 +94,7 @@ local TeleportsNew = Teleports.self:create("Input", {
             UUID = _UUID.generateUUID(),
             Name = value,
             Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
-            Callback = teleportTo,
+            Callback = TeleportsList.Data.Callback,
         })
     end,
 })
