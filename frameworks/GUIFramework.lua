@@ -1,4 +1,4 @@
---Literally stolen from OpenGui
+--Literally stolen from OpenGui and upgraded
 local writefile = writefile or function() end
 local readfile = readfile or function() end
 
