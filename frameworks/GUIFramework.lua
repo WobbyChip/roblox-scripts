@@ -824,11 +824,12 @@ local GUIData = (function()
 
     function lib.Input(data, dataArray)
         local guiObject = Toggle:Clone()
-        guiObject.Dropdown.Visible = true
         local guiData = {}
 
         local createValue = function()
             if data.Callback then
+                print(dataArray.TextBox)
+                print(dataArray.TextBox.Text)
                 local text = dataArray.TextBox.Text:sub(20)
                 data.Callback(text)
             end
@@ -839,6 +840,7 @@ local GUIData = (function()
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
+        guiObject.Dropdown.Visible = true
 
         guiData.ySize = 0
         guiData.Open = false
