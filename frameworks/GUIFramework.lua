@@ -799,6 +799,39 @@ local GUIData = (function()
         return guiObject
     end
 
+    function lib.Toggle(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+
+        local modFrame = ModLabel:Clone()
+        modFrame.Parent = Mods
+        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
+        modFrame.Visible = false
+        gui:setText(modFrame, data.Name)
+
+        guiObject.Name = data.Name
+
+        guiObject.MouseEnter:Connect(function()
+            gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
+        end)
+
+        guiObject.MouseLeave:Connect(function()
+            gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+        end)
+
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextDisabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        return guiObject
+    end
+
     function lib.Checkbox(data, dataArray)
         local guiObject = Checkbox:Clone()
         local Value = gui:unpack(saveData.Options[data.ID].Value, "boolean") or data.Default or false

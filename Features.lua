@@ -4,7 +4,7 @@ local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyCh
 local GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 local gui = GUIData[1]
 
---GUI
+--GUI - Features
 local Features = gui:create("Container", {
     Name = "Features",
 })
@@ -65,4 +65,22 @@ local XrayTransparency = Xray.self:create("Number", {
         _Xray.Options.Transparency = value
         _Xray.update()
     end,
+})
+
+
+--GUI - Teleport
+local Teleport = gui:create("Container", {
+    Name = "Teleports",
+})
+
+
+--Teleports list
+local TeleportList = Teleport.self:create("Box", {
+    Name = "Teleports",
+})
+
+
+--Create new teleport
+local TeleportNew = Teleport.self:create("Box", {
+    Name = "Create New",
 })
