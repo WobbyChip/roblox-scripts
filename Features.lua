@@ -93,7 +93,7 @@ local TeleportsNew = Teleports.self:create("Input", {
         TeleportsList.self:create("HolderBox", {
             HolderName = "Teleports",
             SaveId = game.PlaceId,
-            UUID = _UUID.genearteUUID(),
+            UUID = _UUID.generateUUID(),
             Name = value,
             Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
             Callback = teleportTo,
