@@ -833,19 +833,18 @@ local GUIData = (function()
         modFrame.Visible = false
         gui:setText(modFrame, data.Name)
 
-        guiObject.Name = data.Name
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
-        guiObject.Indicator.Text = "+"
-        guiData.baseColor = colors.TextDisabled
-
         local newValue = function()
+            local Value = "test"
             -- Add input box and gather value from it and pass to callback
+
             if data.Callback then
                 data.Callback(Value)
             end
         end
 
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
+        guiObject.Name = data.Name
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
+        guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() newValue() end)
         guiObject.Label.MouseButton1Down:Connect(function() newValue() end)
 
@@ -856,8 +855,6 @@ local GUIData = (function()
         gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
-
-        data.callback = newValue
 
         return guiObject
     end
