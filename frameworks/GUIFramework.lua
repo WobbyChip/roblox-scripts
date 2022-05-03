@@ -868,8 +868,8 @@ local GUIData = (function()
             }
         end
 
-        print("Callback -> ", data.Callback)
         local guiObject = Execute:Clone()
+        guiObject.Indicator.Text = "-"
         guiObject.Name = "Holder"
 
         guiObject.MouseEnter:Connect(function()
@@ -888,9 +888,6 @@ local GUIData = (function()
         guiObject.Label.MouseButton1Down:Connect(function()
             if data.Callback then data.Callback(data.Holding) end
         end)
-
-        guiObject.Indicator.Text = "-"
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
 
         gui:setText(guiObject.Label, data.Name)
         if dataArray.Object.OptionsFrame then guiObject.Parent = dataArray.Object.OptionsFrame end
