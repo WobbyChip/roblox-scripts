@@ -66,3 +66,19 @@ local XrayTransparency = Xray.self:create("Number", {
         _Xray.xrayUpdate()
     end,
 })
+
+
+--GUI - Teleprots
+local Teleprots = gui:create("Container", {
+    Name = "Teleprots",
+})
+
+
+local TeleprotsList = Teleprots.self:create("Box", {
+    Name = "Teleprots",
+})
+
+
+local TeleprotNew = Teleprots.self:create("Box", {
+    Name = "Create New",
+})
