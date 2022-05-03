@@ -869,7 +869,7 @@ local GUIData = (function()
         end
 
         local guiObject = Execute:Clone()
-        guiObject.Indicator.Text = "-"
+        guiObject.Name = "Holder"
 
         guiObject.MouseEnter:Connect(function()
             gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
@@ -888,15 +888,11 @@ local GUIData = (function()
             if data.Callback then data.Callback(data.Holding) end
         end)
 
-        guiData.ySize = 0
-        guiData.Open = false
-        guiData.baseColor = colors.TextEnabled
+        guiObject.Indicator.Text = "-"
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
 
-        gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
-        gui:textColorOnHover(guiObject.Label, guiData)
-
-        guiObject.Parent = dataArray.Object.OptionsFrame
+        if dataArray.Object.OptionsFrame then guiObject.Parent = dataArray.Object.OptionsFrame end
         return guiObject
     end
 
