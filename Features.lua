@@ -1,3 +1,5 @@
+print("Features - V 1.21")
+
 local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
@@ -75,6 +77,8 @@ local Teleports = gui:create("Container", {
     Name = "Teleports",
 })
 
+print("1");
+
 local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
     FolderName = "Teleports",
@@ -83,6 +87,8 @@ local TeleportsList = Teleports.self:create("HolderBox", {
         _Teleport.teleportTo(_Teleport.decodeCFrame(value))
     end,
 })
+
+print("2");
 
 local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
@@ -97,5 +103,3 @@ local TeleportsNew = Teleports.self:create("Input", {
         })
     end,
 })
-
-print("Features - V 1.21")
