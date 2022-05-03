@@ -48,7 +48,7 @@ local GUIData = (function()
         local JSONData = HttpService:JSONEncode(saveData)
         makefolder("WobbyChip")
         writefile("WobbyChip/GUI.json", JSONData)
-    end));
+    end)
 
     -- Color Functions
     local color = {}
@@ -910,7 +910,7 @@ local GUIData = (function()
             makefolder("WobbyChip")
             makefolder(data.FolderName)
             writefile("WobbyChip/" + data.FolderName + "/" + data.FileName, JSONData)
-        end));
+        end)
 
         for key, value in pairs(dataArray.Data.Config) do
             table.insert(dataArray.Holders, {
