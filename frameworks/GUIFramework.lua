@@ -621,7 +621,7 @@ local GUIData = (function()
         guiObject.TextWrapped = false
         guiObject.TextTruncate = 1
         guiObject.Visible = false
-        guiObject.Parent = number
+        guiObject.Parent = numObject
         return guiObject
     end
 
