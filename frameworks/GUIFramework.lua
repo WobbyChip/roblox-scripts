@@ -799,7 +799,7 @@ local GUIData = (function()
         return guiObject
     end
 
-    function lib.Toggle(data, dataArray)
+    function lib.Box(data, dataArray)
         local guiObject = Toggle:Clone()
         local guiData = {}
 
