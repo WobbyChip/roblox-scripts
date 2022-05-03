@@ -609,7 +609,7 @@ local GUIData = (function()
         numObject.OptionsFrame.Visible = false
         numObject.Indicator.Visible = false
         numObject.ValueFrame.Visible = false
-        numObject.Dropdown.Visible = false
+        --numObject.Dropdown.Visible = false
         numObject.Parent = dataArray.Object.OptionsFrame
 
         local guiObject = Instance.new("TextBox")
