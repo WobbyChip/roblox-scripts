@@ -799,6 +799,66 @@ local GUIData = (function()
         return guiObject
     end
 
+    function lib.Box(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+
+        local modFrame = ModLabel:Clone()
+        modFrame.Parent = Mods
+        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
+        modFrame.Visible = false
+        gui:setText(modFrame, data.Name)
+
+        guiObject.Name = data.Name
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextDisabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        return guiObject
+    end
+
+    function lib.Input(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+
+        local modFrame = ModLabel:Clone()
+        modFrame.Parent = Mods
+        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
+        modFrame.Visible = false
+        gui:setText(modFrame, data.Name)
+
+        local createValue = function()
+            local Value = data.Default
+            --Add input box and gather value from it and pass to callback
+
+            if data.Callback then
+                data.Callback(Value)
+            end
+        end
+
+        guiObject.Name = data.Name
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
+        guiObject.Indicator.Text = "+"
+        guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
+        guiObject.Label.MouseButton1Down:Connect(function() createValue() end)
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextDisabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        return guiObject
+    end
+
     function lib.Checkbox(data, dataArray)
         local guiObject = Checkbox:Clone()
         local Value = gui:unpack(saveData.Options[data.ID].Value, "boolean") or data.Default or false
