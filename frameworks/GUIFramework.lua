@@ -809,6 +809,9 @@ local GUIData = (function()
         modFrame.Visible = false
         gui:setText(modFrame, data.Name)
 
+        guiObject.Name = data.Name
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+
         guiData.ySize = 0
         guiData.Open = false
         guiData.baseColor = colors.TextDisabled
