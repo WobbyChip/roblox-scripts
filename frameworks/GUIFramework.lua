@@ -799,30 +799,6 @@ local GUIData = (function()
         return guiObject
     end
 
-    function lib.Box(data, dataArray)
-        local guiObject = Toggle:Clone()
-        local guiData = {}
-
-        local modFrame = ModLabel:Clone()
-        modFrame.Parent = Mods
-        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
-        modFrame.Visible = false
-        gui:setText(modFrame, data.Name)
-
-        guiObject.Name = data.Name
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
-
-        guiData.ySize = 0
-        guiData.Open = false
-        guiData.baseColor = colors.TextDisabled
-
-        gui:createList(guiObject, guiData)
-        gui:setText(guiObject.Label, data.Name)
-        gui:textColorOnHover(guiObject.Label, guiData)
-
-        return guiObject
-    end
-
     function lib.Input(data, dataArray)
         local guiObject = Toggle:Clone()
         local guiData = {}
@@ -830,7 +806,7 @@ local GUIData = (function()
         local modFrame = ModLabel:Clone()
         modFrame.Parent = Mods
         modFrame.TextColor3 = Colors[math.random(1, #Colors)]
-        modFrame.Visible = false
+        modFrame.Visible = true
         gui:setText(modFrame, data.Name)
 
         local createValue = function()
@@ -848,6 +824,30 @@ local GUIData = (function()
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
         guiObject.Label.MouseButton1Down:Connect(function() createValue() end)
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextDisabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        return guiObject
+    end
+
+    function lib.Box(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+
+        local modFrame = ModLabel:Clone()
+        modFrame.Parent = Mods
+        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
+        modFrame.Visible = false
+        gui:setText(modFrame, data.Name)
+
+        guiObject.Name = data.Name
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
 
         guiData.ySize = 0
         guiData.Open = false
