@@ -832,12 +832,27 @@ local GUIData = (function()
         modFrame.TextColor3 = Colors[math.random(1, #Colors)]
         modFrame.Visible = false
         gui:setText(modFrame, data.Name)
+        
+        print("3");
+
+        local createValue = function()
+            local Value = data.Default
+            --Add input box and gather value from it and pass to callback
+
+            if data.Callback then
+                data.Callback(Value)
+            end
+        end
+        
+        print("4");
 
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
         guiObject.Label.MouseButton1Down:Connect(function() createValue() end)
+        
+        print("5");
 
         guiData.ySize = 0
         guiData.Open = false

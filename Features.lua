@@ -73,12 +73,14 @@ local Teleports = gui:create("Container", {
     Name = "Teleports",
 })
 
+print("1");
 
 local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
     Default = "Location 1",
 })
 
+print("2");
 
 local TeleportsList = Teleports.self:create("Box", {
     Name = "Teleports",
