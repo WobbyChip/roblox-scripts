@@ -98,7 +98,7 @@ local TeleportsNew = Teleports.self:create("Input", {
             UUID = _UUID.generateUUID(),
             Name = value,
             Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
-            Config = TeleportsList.Data.Config
+            Config = TeleportsList.Data.Config,
             Callback = TeleportsList.Data.Callback,
         })
     end,
