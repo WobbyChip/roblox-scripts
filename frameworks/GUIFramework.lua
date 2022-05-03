@@ -56,8 +56,6 @@ local GUIData = (function()
             local LUAData = HttpService:JSONDecode(JSONData)
             saveData.Options = LUAData.Options
             saveData.Hotkeys = LUAData.Hotkeys
-            print(saveData.Options)
-            print(saveData.Hotkeys)
         end
     end)
 
@@ -629,7 +627,7 @@ local GUIData = (function()
         guiObject.Size = UDim2.new(1, -15, 1, 0)
         guiObject.BackgroundTransparency = 1
         guiObject.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
-        guiObject.TextColor3 = Color3.fromRGB(170, 170, 170)
+        guiObject.TextColor3 = Color3.fromRGB(255, 255, 255)
         guiObject.TextSize = 11
         guiObject.ClearTextOnFocus = false
         guiObject.TextWrapped = false
@@ -902,6 +900,7 @@ local GUIData = (function()
 
         gui:setText(guiObject.Label, data.Name)
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
         if dataArray.Object and dataArray.Object.OptionsFrame then guiObject.Parent = dataArray.Object.OptionsFrame end
         return guiObject
     end
@@ -1002,8 +1001,6 @@ local GUIData = (function()
 
     function lib.Container(data, dataArray)
         local guiObject = Container:Clone()
-
-        print("Container -> ", saveData.Options[data.ID].Position)
         guiObject.Position = gui:unpack(saveData.Options[data.ID].Position, "UDim2") or UDim2.new(0, 3, 0, 3 + gui:getn(settingsArray[2]) * 38)
 
         local guiData = {}
