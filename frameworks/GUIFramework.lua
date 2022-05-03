@@ -845,7 +845,6 @@ local GUIData = (function()
 
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(60, 222, 60)})
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
 
@@ -890,6 +889,7 @@ local GUIData = (function()
         end)
 
         gui:setText(guiObject.Label, data.Name)
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
         if dataArray.Object and dataArray.Object.OptionsFrame then guiObject.Parent = dataArray.Object.OptionsFrame end
         return guiObject
     end
