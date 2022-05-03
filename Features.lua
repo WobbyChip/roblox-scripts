@@ -80,6 +80,7 @@ local TeleportsList = Teleports.self:create("HolderBox", {
     HolderName = "Teleports",
     SaveId = game.PlaceId,
     Callback = function(value)
+        print(value)
         _Teleport.teleportTo(_Teleport.decodeCFrame(value))
     end,
 })
@@ -99,4 +100,4 @@ local TeleportsNew = Teleports.self:create("Input", {
     end,
 })
 
-print("Features - V 1.17")
+print("Features - V 1.18")
