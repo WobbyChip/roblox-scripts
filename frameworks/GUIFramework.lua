@@ -868,6 +868,7 @@ local GUIData = (function()
             }
         end
 
+        print("Callback -> ", data.Callback)
         local guiObject = Execute:Clone()
         guiObject.Name = "Holder"
 
