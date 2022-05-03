@@ -604,6 +604,7 @@ local GUIData = (function()
 
     function lib.TextBox(data, dataArray)
         local number = lib.Number(data, dataArray);
+        peinr(number)
         number:FindFirstChild("Label", true) = nil
         number:FindFirstChild("ValueFrame", true) = nil
         number:FindFirstChild("Indicator", true) = nil
