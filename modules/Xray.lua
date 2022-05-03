@@ -21,7 +21,7 @@ local _Xray = (function()
         if enabled then xray(workspace, module.Options.Transparency) else xray(workspace, 0) end
     end
 
-    module.update = function()
+    module.xrayUpdate = function()
         if module.Options.Enabled then xray(workspace, module.Options.Transparency)
     end
 

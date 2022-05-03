@@ -63,6 +63,6 @@ local XrayTransparency = Xray.self:create("Number", {
     Hint = "Xray transparency",
     Callback = function(value)
         _Xray.Options.Transparency = value
-        _Xray.update()
+        _Xray.xrayUpdate()
     end,
 })
