@@ -11,14 +11,11 @@ local GUIData = (function()
     local Execute = Opt.Execute
     local Mode = Opt.Mode
     local Number = Opt.Number
-    local TextBox = Opt.TextBox
     local Toggle = Opt.Toggle
     local Mods = screenGui.Mods
     local ModLabel = Mods.Example
 
-    print("TextBox")
     print(unpack(Opt))
-    print(TextBox)
 
     local TextService = game:GetService("TextService")
     local UserInputService = game:GetService("UserInputService")
@@ -37,7 +34,6 @@ local GUIData = (function()
     Execute.Parent = nil
     Mode.Parent = nil
     Number.Parent = nil
-    TextBox.Parent = nil
     Toggle.Parent = nil
     ModLabel.Parent = nil
 
