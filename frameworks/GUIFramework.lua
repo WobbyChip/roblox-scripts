@@ -909,7 +909,7 @@ local GUIData = (function()
         table.insert(onSave, function()
             local JSONData = HttpService:JSONEncode(dataArray.Data.Config)
             makefolder("WobbyChip")
-            makefolder(data.FolderName)
+            makefolder("WobbyChip/" .. data.FolderName)
             writefile("WobbyChip/" .. data.FolderName .. "/" .. data.FileName, JSONData)
         end)
 
