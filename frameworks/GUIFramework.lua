@@ -856,11 +856,6 @@ local GUIData = (function()
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
-        self:create("Number", {
-            Name = "",
-            Default = 0,
-        })
-
         return guiObject
     end
 
