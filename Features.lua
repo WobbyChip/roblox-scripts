@@ -1,5 +1,7 @@
+local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
+local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 
 local GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 local gui = GUIData[1]
@@ -69,18 +71,32 @@ local XrayTransparency = Xray.self:create("Number", {
 
 
 --GUI - Teleports
+function teleportTo(value)
+    print(value)
+end
+
 local Teleports = gui:create("Container", {
     Name = "Teleports",
+})
+
+local TeleportsList = Teleports.self:create("HolderBox", {
+    Name = "Teleports",
+    HolderName = "Teleports",
+    SaveId = game.PlaceId,
+    Callback = teleportTo,
 })
 
 local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
     Default = "Location 1",
     Callback = function(value)
-        print(value)
+        TeleportsList.self:create("HolderBox", {
+            HolderName = "Teleports",
+            SaveId = game.PlaceId,
+            UUID = _UUID.genearteUUID(),
+            Name = value,
+            Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
+            Callback = teleportTo,
+        })
     end,
-})
-
-local TeleportsList = Teleports.self:create("Box", {
-    Name = "Teleports",
 })

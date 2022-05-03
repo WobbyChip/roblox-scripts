@@ -860,15 +860,60 @@ local GUIData = (function()
         return guiObject
     end
 
-    function lib.Box(data, dataArray)
+    function lib.Holder(data, dataArray)
+        local guiObject = Number:Clone()
+        guiObject.Name = "Holder"
+        guiObject.Parent = dataArray.Object.OptionsFrame
+
+        if not saveData.Options[data.HolderName][data.SaveId][data.UUID] then
+            saveData.Options[data.HolderName][data.SaveId][data.UUID] = {
+                Name = data.Name,
+                Holding = data.Holding,
+            }
+        end
+
+        local removeThis = function()
+            saveData.Options[data.HolderName][data.SaveId][data.UUID] = nil
+            guiObject.Visible = false
+        end
+
+        local runCallback = function()
+            if data.Callback then data.Callback(data.Holding) end
+        end
+
+        guiObject.MouseEnter:Connect(function()
+            gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
+        end)
+
+        guiObject.MouseLeave:Connect(function()
+            gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+        end)
+
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
+        guiObject.Indicator.Text = "-"
+        guiObject.Indicator.MouseButton1Down:Connect(function() removeThis() end)
+        guiObject.Label.MouseButton1Down:Connect(function() runCallback() end)
+    end
+
+    function lib.HolderBox(data, dataArray)
         local guiObject = Toggle:Clone()
         local guiData = {}
 
-        local modFrame = ModLabel:Clone()
-        modFrame.Parent = Mods
-        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
-        modFrame.Visible = false
-        gui:setText(modFrame, data.Name)
+        if not saveData.Options[data.HolderName] then saveData.Options[data.HolderName] = {} end
+        if not saveData.Options[data.HolderName][data.SaveId] then saveData.Options[data.HolderName][data.SaveId] = {} end
+        dataArray.Holders = {}
+
+        for key, value in pairs(saveData.Options[data.HolderName][data.SaveId]) do
+            table.insert(dataArray.Holders, {
+                HolderName = data.HolderName,
+                SaveId = data.SaveId,
+                UUID = key,
+                Name = value.Name,
+                Holding = value.Holding,
+                Callback = data.Callback,
+            })
+        end
 
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
@@ -989,6 +1034,13 @@ local GUIData = (function()
         if guiType == "Input" then
             dataArray.Object.Dropdown.Visible = true
             dataArray.TextBox = lib.TextBox(data, dataArray)
+        end
+
+        if guiType == "HolderBox" then
+            for _, holder in ipairs(dataArray.Holders) do
+                dataArray.Object.Dropdown.Visible = true
+                lib.Holder(holder, dataArray)
+            end
         end
 
         if data.Hint then
