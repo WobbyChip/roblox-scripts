@@ -861,10 +861,6 @@ local GUIData = (function()
     end
 
     function lib.Holder(data, dataArray)
-        local guiObject = Number:Clone()
-        guiObject.Name = "Holder"
-        guiObject.Parent = dataArray.Object.OptionsFrame
-
         if not saveData.Options[data.HolderName][data.SaveId][data.UUID] then
             saveData.Options[data.HolderName][data.SaveId][data.UUID] = {
                 Name = data.Name,
@@ -872,14 +868,8 @@ local GUIData = (function()
             }
         end
 
-        local removeThis = function()
-            saveData.Options[data.HolderName][data.SaveId][data.UUID] = nil
-            guiObject.Visible = false
-        end
-
-        local runCallback = function()
-            if data.Callback then data.Callback(data.Holding) end
-        end
+        local guiObject = Execute:Clone()
+        guiObject.Indicator.Text = "-"
 
         guiObject.MouseEnter:Connect(function()
             gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
@@ -889,11 +879,25 @@ local GUIData = (function()
             gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
         end)
 
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
-        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
-        guiObject.Indicator.Text = "-"
-        guiObject.Indicator.MouseButton1Down:Connect(function() removeThis() end)
-        guiObject.Label.MouseButton1Down:Connect(function() runCallback() end)
+        guiObject.Indicator.MouseButton1Down:Connect(function()
+            saveData.Options[data.HolderName][data.SaveId][data.UUID] = nil
+            guiObject.Visible = false
+        end)
+
+        guiObject.Label.MouseButton1Down:Connect(function()
+            if data.Callback then data.Callback(data.Holding) end
+        end)
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextEnabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        guiObject.Parent = dataArray.Object.OptionsFrame
+        return guiObject
     end
 
     function lib.HolderBox(data, dataArray)
