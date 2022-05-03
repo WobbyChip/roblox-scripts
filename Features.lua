@@ -82,7 +82,4 @@ local TeleportsList = Teleports.self:create("Box", {
 local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
     Default = "Location 1",
-    Callback = function(value)
-        
-    end,
 })
