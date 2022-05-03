@@ -15,8 +15,6 @@ local GUIData = (function()
     local Mods = screenGui.Mods
     local ModLabel = Mods.Example
 
-    print(unpack(Opt))
-
     local TextService = game:GetService("TextService")
     local UserInputService = game:GetService("UserInputService")
     local HttpService = game:GetService("HttpService")
@@ -597,10 +595,29 @@ local GUIData = (function()
         guiData.Open = false
         guiData.baseColor = colors.TextEnabled
 
-        gui:createList(guiObject, guiData)
+        --gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
+        return guiObject
+    end
+
+    function lib.TextBox(data, dataArray)
+        local guiObject = Instance.new("TextBox")
+        guiObject.Size = UDim2.new(1, -15, 1, 0)
+        guiObject.BackgroundTransparency = 1
+        guiObject.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
+        guiObject.TextColor3 = Color3.fromRGB(255, 255, 255)
+        guiObject.TextSize = 11
+        guiObject.ClearTextOnFocus = false
+        guiObject.TextWrapped = false
+        guiObject.TextTruncate = 1
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextEnabled
+
+        gui:createList(guiObject, guiData)
         return guiObject
     end
 
@@ -834,9 +851,26 @@ local GUIData = (function()
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
-        local input = self.create("TextBox", {
-            Default = "Location 1",
-        })
+        if settingsArray[1].Object:FindFirstChild("Dropdown") then
+            settingsArray[1].Object.Dropdown.Visible = true
+        end
+
+        local dataArray = {}
+        local objectArray = {}
+        local selfArray = {dataArray, objectArray, create = gui.create, callback = data.Callback}
+        dataArray.Name = data.Name
+        dataArray.Data = data
+        dataArray.Object = lib[guiType](data, dataArray) --Replace this
+        dataArray.self = selfArray
+
+        if data.Hint then
+            local Object = dataArray.Object
+            gui:addHint(Object:FindFirstChild("Title") or Object:FindFirstChild("Label"), data.Hint)
+        end
+
+        settingsArray[1][data.Name] = selfArray
+        settingsArray[2][data.Name] = dataArray.Object
+        dataArray.Object.Parent = settingsArray[1].Object:FindFirstChild("OptionsFrame") or settingsArray[1].Object
 
         return guiObject
     end
