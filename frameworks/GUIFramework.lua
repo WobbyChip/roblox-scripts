@@ -899,6 +899,7 @@ local GUIData = (function()
         local guiObject = Toggle:Clone()
         local guiData = {}
         dataArray.Data.Config = {}
+        dataArray.Holders = {}
 
         pcall(function()
             local JSONData = readfile("WobbyChip/" + data.FolderName + "/" + data.FileName)
