@@ -149,10 +149,10 @@ local GUIData = (function()
     end
 
     -- UI Functions
-    function gui.tween(object,style,direction,t,goal)
+    function gui.tween(object, style, direction, t, goal)
         local tweenservice = game:GetService("TweenService")
-        local tweenInfo = TweenInfo.new(t,Enum.EasingStyle[style],Enum.EasingDirection[direction])
-        local tween = tweenservice:Create(object,tweenInfo,goal)
+        local tweenInfo = TweenInfo.new(t, Enum.EasingStyle[style], Enum.EasingDirection[direction])
+        local tween = tweenservice:Create(object, tweenInfo, goal)
         tween.Completed:Connect(function()
             tween:Destroy()
         end)
