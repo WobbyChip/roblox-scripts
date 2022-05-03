@@ -77,8 +77,6 @@ local Teleports = gui:create("Container", {
     Name = "Teleports",
 })
 
-print("1");
-
 local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
     FolderName = "Teleports",
@@ -87,8 +85,6 @@ local TeleportsList = Teleports.self:create("HolderBox", {
         _Teleport.teleportTo(_Teleport.decodeCFrame(value))
     end,
 })
-
-print("2");
 
 local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
