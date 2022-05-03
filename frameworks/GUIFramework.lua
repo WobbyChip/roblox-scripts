@@ -902,7 +902,7 @@ local GUIData = (function()
         dataArray.Holders = {}
 
         pcall(function()
-            local JSONData = readfile("WobbyChip/" + data.FolderName + "/" + data.FileName)
+            local JSONData = readfile("WobbyChip/" .. data.FolderName .. "/" .. data.FileName)
             if JSONData then dataArray.Data.Config = HttpService:JSONDecode(JSONData) end
         end)
 
@@ -910,7 +910,7 @@ local GUIData = (function()
             local JSONData = HttpService:JSONEncode(dataArray.Data.Config)
             makefolder("WobbyChip")
             makefolder(data.FolderName)
-            writefile("WobbyChip/" + data.FolderName + "/" + data.FileName, JSONData)
+            writefile("WobbyChip/" .. data.FolderName .. "/" .. data.FileName, JSONData)
         end)
 
         for key, value in pairs(dataArray.Data.Config) do

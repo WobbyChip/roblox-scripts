@@ -80,7 +80,7 @@ local Teleports = gui:create("Container", {
 local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
     FolderName = "Teleports",
-    FileName = game.PlaceId ..".json",
+    FileName = game.PlaceId .. ".json",
     Callback = function(value)
         _Teleport.teleportTo(_Teleport.decodeCFrame(value))
     end,
