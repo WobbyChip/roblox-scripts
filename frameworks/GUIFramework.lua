@@ -846,26 +846,11 @@ local GUIData = (function()
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
-        if settingsArray[1].Object:FindFirstChild("Dropdown") then
-            settingsArray[1].Object.Dropdown.Visible = true
-        end
+        self.create("Number", {
+            Name = "",
+            Default = 0,
+        })
 
-        local dataArray = {}
-        local objectArray = {}
-        local selfArray = {dataArray, objectArray, create = gui.create, callback = data.Callback}
-        dataArray.Name = data.Name
-        dataArray.Data = data
-        dataArray.Object = lib["TextBox"](data, dataArray)
-        dataArray.self = selfArray
-
-        if data.Hint then
-            local Object = dataArray.Object
-            gui:addHint(Object:FindFirstChild("Title") or Object:FindFirstChild("Label"), data.Hint)
-        end
-
-        settingsArray[1][data.Name] = selfArray
-        settingsArray[2][data.Name] = dataArray.Object
-        dataArray.Object.Parent = settingsArray[1].Object:FindFirstChild("OptionsFrame") or settingsArray[1].Object
         return guiObject
     end
 
