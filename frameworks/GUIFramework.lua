@@ -979,7 +979,7 @@ local GUIData = (function()
         end
 
         if guiType == "Input" then
-            self[1].Object.Dropdown.Visible = true
+            dataArray.Object.Dropdown.Visible = true
             dataArray.TextBox = lib.TextBox(data, dataArray)
         end
 
