@@ -604,6 +604,7 @@ local GUIData = (function()
 
     function lib.TextBox(data, dataArray)
         local numObject = Number:Clone()
+        numObject.Parent = dataArray.Object.OptionsFrame
         local guiData = {}
 
         guiData.ySize = 0
