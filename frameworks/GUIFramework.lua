@@ -840,7 +840,6 @@ local GUIData = (function()
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 40, 0, 25)})
         guiObject.Indicator.Text = "+"
         guiObject.Indicator.MouseButton1Down:Connect(function() createValue() end)
-        guiObject.Dropdown.Visible = true
 
         guiData.ySize = 0
         guiData.Open = false
@@ -980,6 +979,7 @@ local GUIData = (function()
         end
 
         if guiType == "Input" then
+            self[1].Object.Dropdown.Visible = true
             dataArray.TextBox = lib.TextBox(data, dataArray)
         end
 
