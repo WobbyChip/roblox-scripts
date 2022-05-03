@@ -1,4 +1,6 @@
 --Literally stolen from OpenGui
+local writefile = writefile or function() end
+local readfile = readfile or function() end
 
 local GUIData = (function()
     -- Variables
@@ -40,14 +42,13 @@ local GUIData = (function()
 
     local hotkeyFunctions = {}
     local gui = {}
+    local onSave = {}
 
-    -- Save Functions
-    local writefile = writefile or function() end
-    local function Save()
+    table.insert(onSave, function()
         local JSONData = HttpService:JSONEncode(saveData)
         makefolder("WobbyChip")
         writefile("WobbyChip/GUI.json", JSONData)
-    end
+    end));
 
     -- Color Functions
     local color = {}
@@ -860,8 +861,8 @@ local GUIData = (function()
     end
 
     function lib.Holder(data, dataArray)
-        if not saveData.Options[data.HolderName][data.SaveId][data.UUID] then
-            saveData.Options[data.HolderName][data.SaveId][data.UUID] = {
+        if not data.Config[data.UUID] then
+            data.Config[data.UUID] = {
                 Name = data.Name,
                 Holding = data.Holding,
             }
@@ -880,7 +881,7 @@ local GUIData = (function()
         end)
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
-            saveData.Options[data.HolderName][data.SaveId][data.UUID] = nil
+            data.Config[data.UUID] = nil
             guiObject.Visible = false
         end)
 
@@ -897,15 +898,22 @@ local GUIData = (function()
     function lib.HolderBox(data, dataArray)
         local guiObject = Toggle:Clone()
         local guiData = {}
+        dataArray.Data.Config = {}
 
-        if not saveData.Options[data.HolderName] then saveData.Options[data.HolderName] = {} end
-        if not saveData.Options[data.HolderName][data.SaveId] then saveData.Options[data.HolderName][data.SaveId] = {} end
-        dataArray.Holders = {}
+        pcall(function()
+            local JSONData = readfile("WobbyChip/" + data.FolderName + "/" + data.FileName)
+            if JSONData then dataArray.Data.Config = HttpService:JSONDecode(JSONData) end
+        end)
 
-        for key, value in pairs(saveData.Options[data.HolderName][data.SaveId]) do
+        table.insert(onSave, function()
+            local JSONData = HttpService:JSONEncode(dataArray.Data.Config)
+            makefolder("WobbyChip")
+            makefolder(data.FolderName)
+            writefile("WobbyChip/" + data.FolderName + "/" + data.FileName, JSONData)
+        end));
+
+        for key, value in pairs(dataArray.Data.Config) do
             table.insert(dataArray.Holders, {
-                HolderName = data.HolderName,
-                SaveId = data.SaveId,
                 UUID = key,
                 Name = value.Name,
                 Holding = value.Holding,
@@ -1037,6 +1045,7 @@ local GUIData = (function()
         if guiType == "HolderBox" then
             for _, holder in ipairs(dataArray.Holders) do
                 dataArray.Object.Dropdown.Visible = true
+                holder.Config = dataArray.Data.Config
                 lib.Holder(holder, dataArray)
             end
         end
@@ -1070,14 +1079,15 @@ local GUIData = (function()
     end)
 
     game.Close:Connect(function()
-        Save()
+        for _, save in ipairs(onSave) do
+            save()
+        end
     end)
 
     return {gui, saveData, screenGui}
 end)()
 
 
-local readfile = readfile or function() end
 pcall(function()
     local JSONData = readfile("WobbyChip/GUI.json")
     if JSONData then

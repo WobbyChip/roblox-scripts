@@ -14,7 +14,7 @@ local _Teleport = (function()
     end
 
     module.decodeCFrame = function(cframe)
-        local s = string.split(sframe, ",")
+        local s = string.split(cframe, ",")
         return CFrame.new(s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11], s[12])
     end
 

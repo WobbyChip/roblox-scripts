@@ -77,12 +77,10 @@ local Teleports = gui:create("Container", {
 
 local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
-    HolderName = "Teleports",
-    SaveId = game.PlaceId,
+    FolderName = "Teleports",
+    FileName = game.PlaceId ..".json",
     Callback = function(value)
-        print(type(value))
-        print(tostring(value))
-        _Teleport.teleportTo(_Teleport.decodeCFrame(tostring(value)))
+        _Teleport.teleportTo(_Teleport.decodeCFrame(value))
     end,
 })
 
@@ -91,14 +89,13 @@ local TeleportsNew = Teleports.self:create("Input", {
     Default = "Location 1",
     Callback = function(value)
         TeleportsList.self:create("Holder", {
-            HolderName = "Teleports",
-            SaveId = game.PlaceId,
             UUID = _UUID.generateUUID(),
             Name = value,
             Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
+            Config = TeleportsList.Data.Config
             Callback = TeleportsList.Data.Callback,
         })
     end,
 })
 
-print("Features - V 1.19")
+print("Features - V 1.21")
