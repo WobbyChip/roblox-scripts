@@ -1,4 +1,6 @@
 local _Teleport = (function()
+    local module = {}
+
     module.teleportTo = function(cframe)
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = cframe
     end
