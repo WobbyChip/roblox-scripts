@@ -610,22 +610,17 @@ local GUIData = (function()
         numObject.ValueFrame.Visible = false;
         numObject.Parent = dataArray.Object.OptionsFrame
 
-        local guiData = {}
-        guiData.ySize = 0
-        guiData.Open = false
-        guiData.baseColor = colors.TextEnabled
-        gui:createList(numObject, guiData)
-
         local guiObject = Instance.new("TextBox")
+        guiObject.Text = dataArray.Data.Default
         guiObject.Size = UDim2.new(1, -15, 1, 0)
         guiObject.BackgroundTransparency = 1
         guiObject.PlaceholderColor3 = Color3.fromRGB(0, 0, 0)
-        guiObject.TextColor3 = Color3.fromRGB(255, 255, 255)
+        guiObject.TextColor3 = Color3.fromRGB(170, 170, 170)
         guiObject.TextSize = 11
         guiObject.ClearTextOnFocus = false
         guiObject.TextWrapped = false
         guiObject.TextTruncate = 1
-        guiObject.Visible = false
+        guiObject.Visible = true
         guiObject.Parent = numObject
         return guiObject
     end

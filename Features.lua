@@ -76,6 +76,9 @@ local Teleports = gui:create("Container", {
 local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
     Default = "Location 1",
+    Callback = function(value)
+        print(value)
+    end,
 })
 
 local TeleportsList = Teleports.self:create("Box", {
