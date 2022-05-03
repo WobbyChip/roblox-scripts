@@ -80,8 +80,9 @@ local TeleportsList = Teleports.self:create("HolderBox", {
     HolderName = "Teleports",
     SaveId = game.PlaceId,
     Callback = function(value)
-        print(value)
-        _Teleport.teleportTo(_Teleport.decodeCFrame(value))
+        print(type(value))
+        print(tostring(value))
+        _Teleport.teleportTo(_Teleport.decodeCFrame(tostring(value)))
     end,
 })
 
