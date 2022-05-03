@@ -22,7 +22,7 @@ local _Xray = (function()
     end
 
     module.xrayUpdate = function()
-        if module.Options.Enabled then xray(workspace, module.Options.Transparency)
+        if module.Options.Enabled then xray(workspace, module.Options.Transparency) end
     end
 
     return module
