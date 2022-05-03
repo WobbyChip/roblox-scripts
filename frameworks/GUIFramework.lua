@@ -832,12 +832,6 @@ local GUIData = (function()
         guiObject.Dropdown.Visible = true
         local guiData = {}
 
-        local modFrame = ModLabel:Clone()
-        modFrame.Parent = Mods
-        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
-        modFrame.Visible = true
-        gui:setText(modFrame, data.Name)
-
         local createValue = function()
             if data.Callback then
                 local text = dataArray.TextBox.Text:sub(20)
