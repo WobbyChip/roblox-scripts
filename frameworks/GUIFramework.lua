@@ -612,6 +612,7 @@ local GUIData = (function()
         guiObject.ClearTextOnFocus = false
         guiObject.TextWrapped = false
         guiObject.TextTruncate = 1
+        guiObject.Visible = false
         return guiObject
     end
 
