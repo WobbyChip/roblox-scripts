@@ -603,6 +603,12 @@ local GUIData = (function()
     end
 
     function lib.TextBox(data, dataArray)
+        local number = lib.Number(data, dataArray);
+        number:FindFirstChild("Label", true) = nil
+        number:FindFirstChild("ValueFrame", true) = nil
+        number:FindFirstChild("Indicator", true) = nil
+        number:FindFirstChild("OptionsFrame", true) = nil
+
         local guiObject = Instance.new("TextBox")
         guiObject.Size = UDim2.new(1, -15, 1, 0)
         guiObject.BackgroundTransparency = 1
@@ -613,6 +619,7 @@ local GUIData = (function()
         guiObject.TextWrapped = false
         guiObject.TextTruncate = 1
         guiObject.Visible = false
+        guiObject.Parent = number
         return guiObject
     end
 
@@ -979,6 +986,11 @@ local GUIData = (function()
         if guiType == "Toggle" then
             lib.Hotkey(data, dataArray)
         end
+
+        if guiType == "Input" then
+            lib.TextBox(data, dataArray)
+        end
+
         if data.Hint then
             local Object = dataArray.Object
             gui:addHint(Object:FindFirstChild("Title") or Object:FindFirstChild("Label"), data.Hint)
