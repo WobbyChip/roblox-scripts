@@ -90,6 +90,7 @@ local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
     Default = "Location 1",
     Callback = function(value)
+        print(_UUID.generateUUID)
         TeleportsList.self:create("HolderBox", {
             HolderName = "Teleports",
             SaveId = game.PlaceId,
