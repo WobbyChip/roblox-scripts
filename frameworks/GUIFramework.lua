@@ -604,10 +604,12 @@ local GUIData = (function()
 
     function lib.TextBox(data, dataArray)
         local numObject = Number:Clone()
-        numObject.Label.Visible = false;
-        numObject.OptionsFrame.Visible = false;
-        numObject.Indicator.Visible = false;
-        numObject.ValueFrame.Visible = false;
+        numObject.Name = "TextBox"
+        numObject.Label.Visible = false
+        numObject.OptionsFrame.Visible = false
+        numObject.Indicator.Visible = false
+        numObject.ValueFrame.Visible = false
+        numObject.Dropdown.Visible = false
         numObject.Parent = dataArray.Object.OptionsFrame
 
         local guiObject = Instance.new("TextBox")
