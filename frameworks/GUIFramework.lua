@@ -860,7 +860,7 @@ local GUIData = (function()
 
         guiData.ySize = 0
         guiData.Open = false
-        guiData.baseColor = colors.TextDisabled
+        guiData.baseColor = colors.TextEnabled
 
         gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
@@ -938,7 +938,25 @@ local GUIData = (function()
 
         guiData.ySize = 0
         guiData.Open = false
-        guiData.baseColor = colors.TextDisabled
+        guiData.baseColor = colors.TextEnabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        return guiObject
+    end
+
+    function lib.Box(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+
+        guiObject.Name = data.Name
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextEnabled
 
         gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)

@@ -9,7 +9,11 @@ local GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobby
 local gui = GUIData[1]
 
 --GUI - Features
-local Features = gui:create("Container", {
+local FeaturesGUI = gui:create("Container", {
+    Name = "Features",
+})
+
+local Features = FeaturesGUI.self:create("Box", {
     Name = "Features",
 })
 
@@ -72,8 +76,8 @@ local XrayTransparency = Xray.self:create("Number", {
 })
 
 
---GUI - Teleports
-local Teleports = gui:create("Container", {
+--Teleports
+local Teleports = Features.self:create("Box", {
     Name = "Teleports",
 })
 
