@@ -5,7 +5,6 @@ local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobby
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
-local gui = _GUIData[1]
 
 --GUI - Features
 local GUI = _GUIData[1]:create("Container", {
