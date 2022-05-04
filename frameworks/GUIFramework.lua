@@ -877,6 +877,9 @@ local GUIData = (function()
             }
         end
 
+        data.Parent.Data.Count = data.Parent.Data.Count + 1
+        data.Parent.Object.Dropdown.Visible = (data.Parent.Data.Count > 0)
+
         local guiObject = Execute:Clone()
         if data.Parent.Data.TextColor then guiObject.Label.TextColor3 = data.Parent.Data.TextColor end
         guiObject.Dropdown.Visible = false
@@ -893,6 +896,7 @@ local GUIData = (function()
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
             data.Parent.Data.Config[data.UUID] = nil
+            data.Parent.Data.Count = data.Parent.Data.Count - 1
             guiObject.Visible = false
         end)
 
@@ -912,6 +916,7 @@ local GUIData = (function()
         local guiData = {}
         dataArray.Data.Config = {}
         dataArray.Data.TextColor = data.TextColor
+        dataArray.Data.Count = 0;
         dataArray.Holders = {}
 
         pcall(function()
@@ -1079,7 +1084,6 @@ local GUIData = (function()
 
         if guiType == "HolderBox" then
             for _, holder in ipairs(dataArray.Holders) do
-                dataArray.Object.Dropdown.Visible = true
                 holder.Parent = dataArray
                 lib.Holder(holder, dataArray)
             end
