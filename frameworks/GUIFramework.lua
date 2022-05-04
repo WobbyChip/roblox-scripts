@@ -1065,6 +1065,11 @@ local GUIData = (function()
             self[1].Object.Dropdown.Visible = true
         end
 
+        if guiType == "Holder" then
+            data.Parent = self[1].Object
+            data.Callback = self[1].Data.Callback
+        end
+
         local dataArray = {}
         local objectArray = {}
         local selfArray = {dataArray, objectArray, create = gui.create, callback = data.Callback}
