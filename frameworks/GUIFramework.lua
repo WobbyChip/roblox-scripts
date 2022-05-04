@@ -933,6 +933,7 @@ local GUIData = (function()
         end
 
         guiObject.Name = data.Name
+        guiObject.Dropdown.Visible = false
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
 
         guiData.ySize = 0
