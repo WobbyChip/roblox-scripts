@@ -952,6 +952,10 @@ local GUIData = (function()
         local guiData = {}
 
         guiObject.Name = data.Name
+        guiObject.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+        guiObject.BorderColor3 = Color3.fromRGB(27, 42, 53)
+        guiObject.BorderSizePixel = 1
+        guiObject.BackgroundTransparency = 0.5
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
 
         guiData.ySize = 0
