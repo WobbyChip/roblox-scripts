@@ -6,11 +6,13 @@ local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyCh
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 
---GUI - Features
+--GUI
 local GUI = _GUIData[1]:create("Container", {
     Name = "Features",
 })
 
+
+--Features
 local Features = GUI.self:create("Box", {
     Name = "Features",
 })
