@@ -870,14 +870,15 @@ local GUIData = (function()
     end
 
     function lib.Holder(data, dataArray)
-        if not data.Config[data.UUID] then
-            data.Config[data.UUID] = {
+        if not data.Parent.Data.Config[data.UUID] then
+            data.Parent.Data.Config[data.UUID] = {
                 Name = data.Name,
                 Holding = data.Holding,
             }
         end
 
         local guiObject = Execute:Clone()
+        if data.Parent.Data.TextColor then guiObject.Label.TextColor3 = data.Parent.Data.TextColor end
         guiObject.Dropdown.Visible = false
         guiObject.Indicator.Text = "-"
         guiObject.Name = "Holder"
@@ -891,7 +892,7 @@ local GUIData = (function()
         end)
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
-            data.Config[data.UUID] = nil
+            data.Parent.Data.Config[data.UUID] = nil
             guiObject.Visible = false
         end)
 
@@ -910,6 +911,7 @@ local GUIData = (function()
         local guiObject = Toggle:Clone()
         local guiData = {}
         dataArray.Data.Config = {}
+        dataArray.Data.TextColor = data.TextColor
         dataArray.Holders = {}
 
         pcall(function()
@@ -1078,7 +1080,7 @@ local GUIData = (function()
         if guiType == "HolderBox" then
             for _, holder in ipairs(dataArray.Holders) do
                 dataArray.Object.Dropdown.Visible = true
-                holder.Config = dataArray.Data.Config
+                holder.Parent = dataArray
                 lib.Holder(holder, dataArray)
             end
         end

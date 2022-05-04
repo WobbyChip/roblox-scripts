@@ -85,6 +85,7 @@ local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
     FolderName = "Teleports",
     FileName = game.PlaceId .. ".json",
+    TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
         _Teleport.teleportTo(_Teleport.decodeCFrame(value))
     end,
@@ -98,7 +99,7 @@ local TeleportsNew = Teleports.self:create("Input", {
             UUID = _UUID.generateUUID(),
             Name = value,
             Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
-            Config = TeleportsList.Data.Config,
+            Parent = TeleportsList,
             Callback = TeleportsList.Data.Callback,
         })
     end,
