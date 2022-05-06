@@ -1066,7 +1066,7 @@ local GUIData = (function()
         end
 
         if guiType == "Holder" then
-            data.Parent = self[1].Object
+            data.Parent = self[1]
             data.Callback = self[1].Data.Callback
         end
 
