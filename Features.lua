@@ -7,13 +7,13 @@ local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobb
 
 --GUI
 local GUI = _GUIData[1]:create("Container", {
-    Name = "Features",
+    Name = "Features - V 1.27",
 })
 
 
 --Features
 local Features = GUI.self:create("Box", {
-    Name = "Features - V 1.27",
+    Name = "Features",
 })
 
 

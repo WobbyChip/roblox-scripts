@@ -7,56 +7,35 @@ local _Speed = (function()
 
     local module = {}
     module.Options = {
-        Enabled = false,
         Speed = 16,
         Saved = 0,
     }
 
-    module.toggleSpeed = function(enabled)
-        if enabled then
-            module.Options.Saved = character.Humanoid.WalkSpeed
-            character.Humanoid.WalkSpeed = module.Options.Speed
-        elseif module.Options.Enabled then
-            character.Humanoid.WalkSpeed = module.Options.Saved
-        end
-
-        module.Options.Enabled = enabled
+    local function speedEnd()
+        if Heartbeat then Heartbeat:Disconnect() end
+        if Heartbeat then setSpeed(module.Options.Saved) end
     end
 
     module.setSpeed = function(value)
-        local enabled = module.Options.Enabled
-        module.Options.Enabled = false
         module.Options.Speed = value
+        if not character or not character.Parent or not character:FindFirstChild("HumanoidRootPart") then return end
         character.Humanoid.WalkSpeed = value
-        module.Options.Enabled = enabled
     end
 
-    function PlayerAdded(player)
-        local Heartbeat = nil
+    module.toggleSpeed = function(enabled)
+        if not enabled then speedEnd() return end
+        if enabled then module.Options.Saved = character.Humanoid.WalkSpeed
 
-        player.CharacterAdded:Connect(function(char)
-            character = char
-
-            character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-                if module.Options.Enabled then
-                    module.Options.Saved = character.Humanoid.WalkSpeed
-                    character.Humanoid.WalkSpeed = module.Options.Speed
-                end
-            end)
-
-            Heartbeat = RunService.Heartbeat:Connect(function()
-                if character:FindFirstChild("HumanoidRootPart") then
-                    character.Humanoid.WalkSpeed = module.Options.Speed
-                end
-            end)
-        end)
-
-        player.CharacterRemoving:Connect(function()
-            Heartbeat:Disconnect()
+        Heartbeat = RunService.Heartbeat:Connect(function()
+            if not character or not character.Parent or not character:FindFirstChild("HumanoidRootPart") then return end
+            module.setSpeed(module.Options.Speed)
         end)
     end
 
-    Players.PlayerAdded:Connect(PlayerAdded)
+    Player.CharacterAdded:Connect(function(char)
+        character = char
+    end)
+
     return module
 end)()
 

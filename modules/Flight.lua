@@ -85,6 +85,7 @@ local _Flight = (function()
             primaryPart.CFrame = flyPart.CFrame
             humanoid.PlatformStand = true
         end))
+
         lib.connect("fly", UserInputService.InputBegan:Connect(function(input, event)
             if event then return end
             local code, codes = input.KeyCode, Enum.KeyCode
@@ -96,14 +97,11 @@ local _Flight = (function()
                 dir.s = true
             elseif code == codes.D then
                 dir.d = true
-            elseif code == codes.Q then
-                dir.q = true
-            elseif code == codes.E then
-                dir.e = true
             elseif code == codes.Space then
                 dir.q = true
             end
         end))
+
         lib.connect("fly", UserInputService.InputEnded:Connect(function(input, event)
             if event then return end
             local code, codes = input.KeyCode, Enum.KeyCode
@@ -115,10 +113,6 @@ local _Flight = (function()
                 dir.s = false
             elseif code == codes.D then
                 dir.d = false
-            elseif code == codes.Q then
-                dir.q = false
-            elseif code == codes.E then
-                dir.e = false
             elseif code == codes.Space then
                 dir.q = false
             end
