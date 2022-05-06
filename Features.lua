@@ -7,7 +7,7 @@ local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobb
 
 --GUI
 local GUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.29",
+    Name = "Features - V 1.30",
 })
 
 
@@ -66,7 +66,7 @@ local SpeedSpeed = Speed.self:create("Number", {
     Name = "Speed",
     Default = 16,
     Min = 0.1,
-    Max = 200,
+    Max = 300,
     Round = 0.1,
     Hint = "Movement speed",
     Callback = function(value)

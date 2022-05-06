@@ -31,6 +31,7 @@ local _Speed = (function()
         module.Options.Enabled = enabled
         if not enabled then speedEnd() return end
         module.Options.Saved = character.Humanoid.WalkSpeed
+        module.setSpeed(module.Options.Speed)
 
         Heartbeat = RunService.Heartbeat:Connect(function()
             module.setSpeed(module.Options.Speed)
