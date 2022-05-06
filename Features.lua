@@ -1,5 +1,3 @@
-print("V 1.27")
-
 local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
 local _Speed = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Speed.lua"))()
@@ -9,7 +7,7 @@ local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobb
 
 --GUI
 local GUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.27",
+    Name = "Features - V 1.28",
 })
 
 
