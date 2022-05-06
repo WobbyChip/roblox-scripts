@@ -2,6 +2,7 @@ print("Features - V 1.26")
 
 local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
+local _Speed = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Speed.lua"))()
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
@@ -24,7 +25,7 @@ local Flight = Features.self:create("Toggle", {
     Default = false,
     Hint = "Toggle player flight",
     Callback = function(enabled)
-        _Flight.flyStart(enabled)
+        _Flight.toggleFly(enabled)
     end,
 })
 
@@ -49,6 +50,29 @@ local FlightSpeed = Flight.self:create("Number", {
     Hint = "Smoothness of the interpolation",
     Callback = function(value)
         _Flight.Options.Smoothness = value
+    end,
+})
+
+
+--Speed
+local Speed = Features.self:create("Toggle", {
+    Name = "Speed",
+    Default = false,
+    Hint = "Toggle player speed",
+    Callback = function(enabled)
+        _Speed.toggleSpeed(enabled)
+    end,
+})
+
+local SpeedSpeed = Speed.self:create("Number", {
+    Name = "Speed",
+    Default = 16,
+    Min = 0.1,
+    Max = 200,
+    Round = 0.1,
+    Hint = "Movement speed",
+    Callback = function(value)
+        _Speed.Options.Speed = value
     end,
 })
 

@@ -42,7 +42,7 @@ local _Flight = (function()
         end
     end
 
-    module.flyStart = function(enabled)
+    module.toggleFly = function(enabled)
         if not enabled then flyEnd() return end
         local dir = {w = false, a = false, s = false, d = false}
         local cf = Instance.new("CFrameValue")
