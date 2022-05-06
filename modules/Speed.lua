@@ -16,8 +16,8 @@ local _Speed = (function()
         if not Heartbeat then return end
         Heartbeat:Disconnect()
 
-        if not character or not character.Humanoid then return end
-        character.Humanoid.WalkSpeed = module.Options.Saved
+        if not character then return end
+        character:WaitForChild("Humanoid").WalkSpeed = module.Options.Saved
     end
 
     module.setSpeed = function(value)
