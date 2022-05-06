@@ -7,22 +7,28 @@ local _Speed = (function()
 
     local module = {}
     module.Options = {
+        Enabled = false,
         Speed = 16,
         Saved = 0,
     }
 
     local function speedEnd()
-        if Heartbeat then Heartbeat:Disconnect() end
-        if Heartbeat then module.setSpeed(module.Options.Saved) end
+        if not Heartbeat then return end
+        Heartbeat:Disconnect()
+
+        if not character or not character.Humanoid then return end
+        character.Humanoid.WalkSpeed = module.Options.Saved
     end
 
     module.setSpeed = function(value)
+        if not module.Options.Enabled then return end
         module.Options.Speed = value
-        if not character or not character.Parent or not character:FindFirstChild("HumanoidRootPart") then return end
+        if not character or not character.Humanoid then return end
         character.Humanoid.WalkSpeed = value
     end
 
     module.toggleSpeed = function(enabled)
+        module.Options.Enabled = enabled
         if not enabled then speedEnd() return end
         module.Options.Saved = character.Humanoid.WalkSpeed
 
