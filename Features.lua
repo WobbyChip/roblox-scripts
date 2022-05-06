@@ -1,5 +1,3 @@
-print("Features - V 1.26")
-
 local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
 local _Speed = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Speed.lua"))()
@@ -15,7 +13,7 @@ local GUI = _GUIData[1]:create("Container", {
 
 --Features
 local Features = GUI.self:create("Box", {
-    Name = "Features",
+    Name = "Features - V 1.27",
 })
 
 
@@ -72,7 +70,7 @@ local SpeedSpeed = Speed.self:create("Number", {
     Round = 0.1,
     Hint = "Movement speed",
     Callback = function(value)
-        _Speed.Options.Speed = value
+        _Speed.setSpeed(value)
     end,
 })
 
