@@ -3,6 +3,7 @@ local _Speed = (function()
     local Players = game:GetService("Players")
     local Player = Players.LocalPlayer
     local character = Player.Character
+    local Heartbeat = nil
 
     local module = {}
     module.Options = {
@@ -30,17 +31,32 @@ local _Speed = (function()
         module.Options.Enabled = enabled
     end
 
-    Player.CharacterAdded:Connect(function(char)
-        character = char
+    function PlayerAdded(player)
+        local Heartbeat = nil
 
-        character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-            if module.Options.Enabled then
-                module.Options.Saved = character.Humanoid.WalkSpeed
-                character.Humanoid.WalkSpeed = module.Options.Speed
-            end
+        player.CharacterAdded:Connect(function(char)
+            character = char
+
+            character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                if module.Options.Enabled then
+                    module.Options.Saved = character.Humanoid.WalkSpeed
+                    character.Humanoid.WalkSpeed = module.Options.Speed
+                end
+            end)
+
+            Heartbeat = RunService.Heartbeat:Connect(function()
+                if character:FindFirstChild("HumanoidRootPart") then
+                    character.Humanoid.WalkSpeed = module.Options.Speed
+                end
+            end)
         end)
-    end)
 
+        player.CharacterRemoving:Connect(function()
+            Heartbeat:Disconnect()
+        end)
+    end
+
+    Players.PlayerAdded:Connect(PlayerAdded)
     return module
 end)()
 
