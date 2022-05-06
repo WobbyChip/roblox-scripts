@@ -23,8 +23,8 @@ local _Speed = (function()
     module.setSpeed = function(value)
         if not module.Options.Enabled then return end
         module.Options.Speed = value
-        if not character or not character.Humanoid then return end
-        character.Humanoid.WalkSpeed = value
+        if not character then return end
+        character:WaitForChild("Humanoid").WalkSpeed = value
     end
 
     module.toggleSpeed = function(enabled)
@@ -33,7 +33,6 @@ local _Speed = (function()
         module.Options.Saved = character.Humanoid.WalkSpeed
 
         Heartbeat = RunService.Heartbeat:Connect(function()
-            if not character or not character.Parent or not character:FindFirstChild("HumanoidRootPart") then return end
             module.setSpeed(module.Options.Speed)
         end)
     end
