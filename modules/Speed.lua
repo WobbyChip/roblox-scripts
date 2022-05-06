@@ -13,7 +13,7 @@ local _Speed = (function()
 
     local function speedEnd()
         if Heartbeat then Heartbeat:Disconnect() end
-        if Heartbeat then setSpeed(module.Options.Saved) end
+        if Heartbeat then module.setSpeed(module.Options.Saved) end
     end
 
     module.setSpeed = function(value)
@@ -24,7 +24,7 @@ local _Speed = (function()
 
     module.toggleSpeed = function(enabled)
         if not enabled then speedEnd() return end
-        if enabled then module.Options.Saved = character.Humanoid.WalkSpeed
+        module.Options.Saved = character.Humanoid.WalkSpeed
 
         Heartbeat = RunService.Heartbeat:Connect(function()
             if not character or not character.Parent or not character:FindFirstChild("HumanoidRootPart") then return end
