@@ -8,6 +8,7 @@ local _Flight = (function()
 
     local module = {}
     module.Options = {
+        Enabled = false,
         Speed = 5,
         Smoothness = 0.2,
     }
@@ -43,6 +44,7 @@ local _Flight = (function()
     end
 
     module.toggleFly = function(enabled)
+        module.Options.Enabled = enabled
         if not enabled then flyEnd() return end
         local dir = {w = false, a = false, s = false, d = false}
         local cf = Instance.new("CFrameValue")

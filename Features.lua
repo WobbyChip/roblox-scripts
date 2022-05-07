@@ -109,7 +109,10 @@ local TeleportsList = Teleports.self:create("HolderBox", {
     FileName = game.PlaceId .. ".json",
     TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
+        local enabled = _Flight.Options.Enabled
+        _Flight.toggleFly(false)
         _Teleport.teleportTo(_Teleport.decodeCFrame(value))
+        _Flight.toggleFly(enabled)
     end,
 })
 
