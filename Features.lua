@@ -52,7 +52,7 @@ local FlightSpeed = Flight.self:create("Number", {
 })
 
 
---Speed
+--[[--Speed
 local Speed = Features.self:create("Toggle", {
     Name = "Speed",
     Default = false,
@@ -72,7 +72,7 @@ local SpeedSpeed = Speed.self:create("Number", {
     Callback = function(value)
         _Speed.setSpeed(value)
     end,
-})
+})]]--
 
 
 --Xray
