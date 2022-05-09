@@ -925,6 +925,7 @@ local GUIData = (function()
         end)
 
         table.insert(onSave, function()
+            if dataArray.Data.Count = 0 then return end
             local JSONData = HttpService:JSONEncode(dataArray.Data.Config)
             makefolder("WobbyChip")
             makefolder("WobbyChip/" .. data.FolderName)
