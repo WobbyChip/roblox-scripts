@@ -105,6 +105,7 @@ Features.self:create("Toggle", {
     Name = "GUI",
     Default = true,
     Hotkey = tostring(Enum.KeyCode.RightControl),
+    Hint = "The navigation GUI",
     Callback = function(enabled)
         for _, frame in pairs(_GUIData[3]:GetChildren()) do
             if frame:IsA("Frame") then
