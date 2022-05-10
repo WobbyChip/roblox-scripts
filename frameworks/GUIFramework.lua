@@ -877,8 +877,7 @@ local GUIData = (function()
             }
         end
 
-        data.Parent.Data.Count = data.Parent.Data.Count + 1
-        data.Parent.Object.Dropdown.Visible = (data.Parent.Data.Count > 0)
+        data.Parent.Data.Update(1)
 
         local guiObject = Execute:Clone()
         if data.Parent.Data.TextColor then guiObject.Label.TextColor3 = data.Parent.Data.TextColor end
@@ -896,7 +895,7 @@ local GUIData = (function()
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
             data.Parent.Data.Config[data.UUID] = nil
-            data.Parent.Data.Count = data.Parent.Data.Count - 1
+            data.Parent.Data.Update(-1)
             guiObject.Visible = false
         end)
 
@@ -916,6 +915,7 @@ local GUIData = (function()
         local guiData = {}
         dataArray.Data.Config = {}
         dataArray.Data.TextColor = data.TextColor
+        dataArray.Data.Update = nil
         dataArray.Data.Count = 0;
         dataArray.Holders = {}
 
@@ -940,6 +940,17 @@ local GUIData = (function()
                 Callback = data.Callback,
             })
         end
+
+        dataArray.Data.Update = function(num)
+            dataArray.Data.Count = dataArray.Data.Count + num
+            guiObject.Dropdown.Visible = (dataArray.Data.Count > 0)
+            if guiData.Open then guiData.Open = (dataArray.Data.Count > 0) end
+            if guiData.Open then
+                guiObject.Dropdown.Image = "rbxassetid://3559638428"
+            else
+                guiObject.Dropdown.Image = "rbxassetid://3554238678"
+            end
+        end)
 
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
