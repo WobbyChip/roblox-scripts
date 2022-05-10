@@ -915,9 +915,19 @@ local GUIData = (function()
         local guiData = {}
         dataArray.Data.Config = {}
         dataArray.Data.TextColor = data.TextColor
-        dataArray.Data.Update = nil
         dataArray.Data.Count = 0;
         dataArray.Holders = {}
+
+        dataArray.Data.Update = function(num)
+            dataArray.Data.Count = dataArray.Data.Count + num
+            guiObject.Dropdown.Visible = (dataArray.Data.Count > 0)
+            if guiData.Open then guiData.Open = (dataArray.Data.Count > 0) end
+            if guiData.Open then
+                guiObject.Dropdown.Image = "rbxassetid://3559638428"
+            else
+                guiObject.Dropdown.Image = "rbxassetid://3554238678"
+            end
+        end
 
         pcall(function()
             local JSONData = readfile("WobbyChip/" .. data.FolderName .. "/" .. data.FileName)
@@ -939,17 +949,6 @@ local GUIData = (function()
                 Holding = value.Holding,
                 Callback = data.Callback,
             })
-        end
-
-        dataArray.Data.Update = function(num)
-            dataArray.Data.Count = dataArray.Data.Count + num
-            guiObject.Dropdown.Visible = (dataArray.Data.Count > 0)
-            if guiData.Open then guiData.Open = (dataArray.Data.Count > 0) end
-            if guiData.Open then
-                guiObject.Dropdown.Image = "rbxassetid://3559638428"
-            else
-                guiObject.Dropdown.Image = "rbxassetid://3554238678"
-            end
         end
 
         guiObject.Name = data.Name
