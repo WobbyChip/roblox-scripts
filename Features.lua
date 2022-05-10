@@ -21,6 +21,7 @@ local Features = GUI.self:create("Box", {
 local Flight = Features.self:create("Toggle", {
     Name = "Flight",
     Default = false,
+    Hotkey = tostring(Enum.KeyCode.X),
     Hint = "Toggle player flight",
     Callback = function(enabled)
         _Flight.toggleFly(enabled)
@@ -79,6 +80,7 @@ local SpeedSpeed = Speed.self:create("Number", {
 local Xray = Features.self:create("Toggle", {
     Name = "Xray",
     Default = false,
+    Hotkey = tostring(Enum.KeyCode.Z),
     Callback = function(enabled)
         _Xray.xrayToggle(enabled)
     end,
@@ -94,6 +96,24 @@ local XrayTransparency = Xray.self:create("Number", {
     Callback = function(value)
         _Xray.Options.Transparency = value
         _Xray.xrayUpdate()
+    end,
+})
+
+
+--GUI Visibility
+Features.self:create("Toggle", {
+    Name = "GUI",
+    Default = true,
+    Hotkey = tostring(Enum.KeyCode.RightControl),
+    Hint = "The navigation GUI",
+    Callback = function(enabled)
+        for _, frame in pairs(_GUIData[3]:GetChildren()) do
+            if frame:IsA("Frame") then
+                frame.Visible = enabled
+            end
+        end
+        _GUIData[3].Modal.Visible = enabled
+        _GUIData[3].Hint.Visible = false
     end,
 })
 
