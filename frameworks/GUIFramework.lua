@@ -918,6 +918,10 @@ local GUIData = (function()
         dataArray.Data.Count = 0;
         dataArray.Holders = {}
 
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextEnabled
+
         dataArray.Data.Update = function(num)
             dataArray.Data.Count = dataArray.Data.Count + num
             guiObject.Dropdown.Visible = (dataArray.Data.Count > 0)
@@ -953,10 +957,6 @@ local GUIData = (function()
 
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
-
-        guiData.ySize = 0
-        guiData.Open = false
-        guiData.baseColor = colors.TextEnabled
 
         gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
