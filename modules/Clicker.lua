@@ -1,5 +1,6 @@
 local _Clicker = (function()
     local VirtualInputManager = game:GetService("VirtualInputManager")
+    local Players = game:GetService("Players")
 
     local module = {
         Options = {
