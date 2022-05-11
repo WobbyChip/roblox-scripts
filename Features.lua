@@ -5,8 +5,14 @@ local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyCh
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 
+--GUI Container
+local ContainerGUI = _GUIData[1]:create("Container", {
+    Name = "Features - V 1.31",
+})
+
+
 --Features
-local Features = _GUIData[1]:create("Container", { Name = "Features - V 1.31", }).self:create("Box", {
+local Features = ContainerGUI.self:create("Box", {
     Name = "Features",
 })
 
@@ -128,7 +134,7 @@ GUI.self:create("Toggle", {
 
 
 --Teleports
-local Teleports = GUI.self:create("Box", {
+local Teleports = ContainerGUI.self:create("Box", {
     Name = "Teleports",
 })
 
