@@ -59,7 +59,7 @@ local Clicker = Features.self:create("Toggle", {
     Default = false,
     Hint = "Toggle clicker",
     Callback = function(enabled)
-        if not Clicker.Object then return end
+        if (not Clicker) or (not Clicker.Object) then return end
         _Clicker.updateMouse()
         local mouse = _Clicker.getMouse()
 
