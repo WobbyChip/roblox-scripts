@@ -1,6 +1,6 @@
 local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
-local _Speed = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Speed.lua"))()
+local _Clicker = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Clicker.lua"))()
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
@@ -53,27 +53,36 @@ local FlightSpeed = Flight.self:create("Number", {
 })
 
 
---[[--Speed
-local Speed = Features.self:create("Toggle", {
-    Name = "Speed",
+--Clicker
+local Clicker = Features.self:create("Toggle", {
+    Name = "Clicker",
     Default = false,
-    Hint = "Toggle player speed",
+    Hint = "Toggle clicker",
     Callback = function(enabled)
-        _Speed.toggleSpeed(enabled)
+        _Clicker.updateMouse()
+        local mouse = _Clicker.getMouse()
+
+        if enabled then
+          _GUIData[1]:setText(Clicker.Object.Label, "Clicker | X: " .. mouse[1] .. ", Y: " .. mouse[2])
+         else
+           _GUIData[1]:setText(Clicker.Object.Label, "Clicker")
+         end
+
+        _Clicker.toggleClicker(enabled)
     end,
 })
 
-local SpeedSpeed = Speed.self:create("Number", {
-    Name = "Speed",
-    Default = 16,
-    Min = 0.1,
-    Max = 300,
-    Round = 0.1,
-    Hint = "Movement speed",
+local ClickerInterval = Clicker.self:create("Number", {
+    Name = "Interval",
+    Default = 1,
+    Min = 0.01,
+    Max = 2,
+    Round = 0.01,
+    Hint = "Clivker interval",
     Callback = function(value)
-        _Speed.setSpeed(value)
+        _Clicker.Options.Interval = value
     end,
-})]]--
+})
 
 
 --Xray
@@ -82,7 +91,7 @@ local Xray = Features.self:create("Toggle", {
     Default = false,
     Hotkey = tostring(Enum.KeyCode.Z),
     Callback = function(enabled)
-        _Xray.xrayToggle(enabled)
+        _Xray.toggleXray(enabled)
     end,
 })
 
@@ -95,7 +104,7 @@ local XrayTransparency = Xray.self:create("Number", {
     Hint = "Xray transparency",
     Callback = function(value)
         _Xray.Options.Transparency = value
-        _Xray.xrayUpdate()
+        _Xray.updateXray()
     end,
 })
 
