@@ -6,13 +6,13 @@ local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wob
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 
 --GUI Container
-local ContainerGUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.32",
+local FeaturesGUI = _GUIData[1]:create("Container", {
+    Name = "Features - V 1.33",
 })
 
 
 --Features
-local Features = ContainerGUI.self:create("Box", {
+local Features = FeaturesGUI.self:create("Box", {
     Name = "Features",
 })
 
@@ -30,7 +30,7 @@ local Flight = Features.self:create("Toggle", {
 
 local FlightSpeed = Flight.self:create("Number", {
     Name = "Speed",
-    Default = 5,
+    Default = 15,
     Min = 0.1,
     Max = 100,
     Round = 0.1,
@@ -101,7 +101,7 @@ local XrayTransparency = Xray.self:create("Number", {
 
 
 --GUI
-local GUI = ContainerGUI.self:create("Box", {
+local GUI = FeaturesGUI.self:create("Box", {
     Name = "GUI",
 })
 
@@ -123,7 +123,7 @@ local GUIVisibility = GUI.self:create("Toggle", {
 
 
 --Teleports
-local Teleports = ContainerGUI.self:create("Box", {
+local Teleports = FeaturesGUI.self:create("Box", {
     Name = "Teleports",
 })
 
