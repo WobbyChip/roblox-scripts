@@ -21,14 +21,12 @@ local _Clicker = (function()
     end
 
     module.updateMouse = function()
-        local Player = Players.LocalPlayer
-        local Mouse = Player:GetMouse()
+        local Mouse = Players.LocalPlayer:GetMouse()
         module.Options.X, module.Options.Y = Mouse.X, Mouse.Y + 10
     end
 
     module.getMouse = function()
-        local Player = Players.LocalPlayer
-        local Mouse = Player:GetMouse()
+        local Mouse = Players.LocalPlayer:GetMouse()
         return { Mouse.X, Mouse.Y + 10 }
     end
 
