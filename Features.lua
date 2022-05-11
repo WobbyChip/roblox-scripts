@@ -78,7 +78,7 @@ local ClickerInterval = Clicker.self:create("Number", {
     Min = 0.01,
     Max = 2,
     Round = 0.01,
-    Hint = "Clivker interval",
+    Hint = "Clicker interval",
     Callback = function(value)
         _Clicker.Options.Interval = value
     end,
