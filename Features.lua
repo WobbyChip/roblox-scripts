@@ -5,14 +5,8 @@ local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyCh
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 
---GUI
-local GUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.31",
-})
-
-
 --Features
-local Features = GUI.self:create("Box", {
+local Features = _GUIData[1]:create("Container", { Name = "Features - V 1.31", }).self:create("Box", {
     Name = "Features",
 })
 
@@ -111,12 +105,16 @@ local XrayTransparency = Xray.self:create("Number", {
 })
 
 
---GUI Visibility
-Features.self:create("Toggle", {
+--GUI
+local GUI = GUI.self:create("Box", {
     Name = "GUI",
+})
+
+GUI.self:create("Toggle", {
+    Name = "Enabled",
     Default = true,
     Hotkey = tostring(Enum.KeyCode.RightControl),
-    Hint = "The navigation GUI",
+    Hint = "The GUI visibility",
     Callback = function(enabled)
         for _, frame in pairs(_GUIData[3]:GetChildren()) do
             if frame:IsA("Frame") then
