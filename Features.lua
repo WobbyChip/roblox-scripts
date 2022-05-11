@@ -112,7 +112,7 @@ local XrayTransparency = Xray.self:create("Number", {
 
 
 --GUI
-local GUI = GUI.self:create("Box", {
+local GUI = ContainerGUI.self:create("Box", {
     Name = "GUI",
 })
 
