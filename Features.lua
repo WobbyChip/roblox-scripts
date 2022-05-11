@@ -7,7 +7,7 @@ local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobb
 
 --GUI Container
 local ContainerGUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.31",
+    Name = "Features - V 1.32",
 })
 
 
@@ -59,17 +59,6 @@ local Clicker = Features.self:create("Toggle", {
     Default = false,
     Hint = "Toggle clicker",
     Callback = function(enabled)
-        if enabled then print(Clicker.Object) end
-        if (not Clicker) or (not Clicker.Object) then return end
-        _Clicker.updateMouse()
-        local mouse = _Clicker.getMouse()
-
-        if enabled then
-          _GUIData[1]:setText(Clicker.Object.Label, "Clicker | X: " .. mouse[1] .. ", Y: " .. mouse[2])
-         else
-           _GUIData[1]:setText(Clicker.Object.Label, "Clicker")
-         end
-
         _Clicker.toggleClicker(enabled)
     end,
 })
@@ -116,7 +105,7 @@ local GUI = ContainerGUI.self:create("Box", {
     Name = "GUI",
 })
 
-GUI.self:create("Toggle", {
+local GUIVisibility = GUI.self:create("Toggle", {
     Name = "Enabled",
     Default = true,
     Hotkey = tostring(Enum.KeyCode.RightControl),

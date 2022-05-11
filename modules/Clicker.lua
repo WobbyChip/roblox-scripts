@@ -12,6 +12,7 @@ local _Clicker = (function()
 
     module.toggleClicker = function(enabled)
         module.Options.Enabled = enabled
+        if enabled then module.updateMouse() end
 
         while module.Options.Enabled do
             VirtualInputManager:SendMouseButtonEvent(module.Options.X, module.Options.Y, 0, true, game, 1)
