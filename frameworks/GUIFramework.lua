@@ -835,18 +835,49 @@ local GUIData = (function()
 
     function lib.Button(data, dataArray)
         local guiObject = Toggle:Clone()
+        local Value = false
         local guiData = {}
 
         local modFrame = ModLabel:Clone()
         modFrame.Parent = Mods
         modFrame.TextColor3 = Colors[math.random(1, #Colors)]
-        modFrame.Visible = true
+        modFrame.Visible = false
         gui:setText(modFrame, data.Name)
+
         guiObject.Name = data.Name
 
+        local newValue = function(val, set)
+            if val == true then
+            else
+                if set then
+                    Value = set
+                else
+                    Value = not Value
+                end
+            end
+
+            if Value then
+                gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(60, 222, 60)})
+                guiObject.Indicator.Text = "ON"
+                guiData.baseColor = colors.TextEnabled
+            else
+                gui.tween(guiObject.Indicator, "Sine", "Out", .25, {BackgroundColor3 = Color3.fromRGB(222, 60, 60)})
+                guiObject.Indicator.Text = "OFF"
+                guiData.baseColor = colors.TextDisabled
+            end
+
+            if data.Callback then
+                data.Callback()
+            end
+
+            modFrame.Visible = Value
+
+        end
+
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
-        guiObject.Indicator.MouseButton1Down:Connect(function() data.Callback() end)
-        guiObject.Label.MouseButton1Down:Connect(function() data.Callback() end)
+        guiObject.Indicator.MouseButton1Down:Connect(function() newValue() end)
+        guiObject.Label.MouseButton1Down:Connect(function() newValue() end)
+        newValue(true)
 
         guiData.ySize = 0
         guiData.Open = false
@@ -856,7 +887,7 @@ local GUIData = (function()
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
-        data.callback = data.Callback
+        data.callback = newValue
         return guiObject
     end
 
