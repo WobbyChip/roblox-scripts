@@ -904,10 +904,6 @@ local GUIData = (function()
 
         data.Parent.Data.Update(1)
 
-        data.callback = function()
-            if data.Callback then data.Callback(data.Holding) end
-        end
-
         local guiObject = Execute:Clone()
         if data.Parent.Data.TextColor then guiObject.Label.TextColor3 = data.Parent.Data.TextColor end
         guiObject.Dropdown.Visible = false
@@ -1136,10 +1132,6 @@ local GUIData = (function()
                 holder.Parent = dataArray
                 lib.Holder(holder, dataArray)
             end
-        end
-
-        if guiType == "Holder" then
-            lib.Hotkey(data, dataArray)
         end
 
         if data.Hint then
