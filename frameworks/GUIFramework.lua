@@ -830,7 +830,32 @@ local GUIData = (function()
         gui:textColorOnHover(guiObject.Label, guiData)
 
         data.callback = newValue
+        return guiObject
+    end
 
+    function lib.Button(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+
+        local modFrame = ModLabel:Clone()
+        modFrame.Parent = Mods
+        modFrame.TextColor3 = Colors[math.random(1, #Colors)]
+        modFrame.Visible = false
+        gui:setText(modFrame, data.Name)
+        guiObject.Name = data.Name
+
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+        guiObject.Indicator.MouseButton1Down:Connect(function() data.Callback() end)
+        guiObject.Label.MouseButton1Down:Connect(function() data.Callback() end)
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextDisabled
+
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+
+        data.callback = data.Callback
         return guiObject
     end
 
@@ -878,6 +903,10 @@ local GUIData = (function()
         end
 
         data.Parent.Data.Update(1)
+
+        data.callback = function()
+            if data.Callback then data.Callback(data.Holding) end
+        end)
 
         local guiObject = Execute:Clone()
         if data.Parent.Data.TextColor then guiObject.Label.TextColor3 = data.Parent.Data.TextColor end
@@ -1093,6 +1122,10 @@ local GUIData = (function()
             lib.Hotkey(data, dataArray)
         end
 
+        if guiType == "Button" then
+            lib.Hotkey(data, dataArray)
+        end
+
         if guiType == "Input" then
             dataArray.Object.Dropdown.Visible = true
             dataArray.TextBox = lib.TextBox(data, dataArray)
@@ -1103,6 +1136,10 @@ local GUIData = (function()
                 holder.Parent = dataArray
                 lib.Holder(holder, dataArray)
             end
+        end
+
+        if guiType == "Holder" then
+            lib.Hotkey(data, dataArray)
         end
 
         if data.Hint then

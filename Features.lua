@@ -100,6 +100,16 @@ local XrayTransparency = Xray.self:create("Number", {
 })
 
 
+--Suicide
+local Suicide = Features.self:create("Button", {
+    Name = "Suicide",
+    Default = false,
+    Callback = function()
+        game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
+    end,
+})
+
+
 --GUI
 local GUI = FeaturesGUI.self:create("Box", {
     Name = "GUI",
