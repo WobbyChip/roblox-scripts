@@ -840,7 +840,7 @@ local GUIData = (function()
         local modFrame = ModLabel:Clone()
         modFrame.Parent = Mods
         modFrame.TextColor3 = Colors[math.random(1, #Colors)]
-        modFrame.Visible = false
+        modFrame.Visible = true
         gui:setText(modFrame, data.Name)
         guiObject.Name = data.Name
 
