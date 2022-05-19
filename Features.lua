@@ -7,7 +7,7 @@ local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/Wobb
 
 --GUI Container
 local FeaturesGUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.35",
+    Name = "Features - V 1.33",
 })
 
 
@@ -96,15 +96,6 @@ local XrayTransparency = Xray.self:create("Number", {
     Callback = function(value)
         _Xray.Options.Transparency = value
         _Xray.updateXray()
-    end,
-})
-
-
---Suicide
-local Suicide = Features.self:create("Button", {
-    Name = "Suicide",
-    Callback = function()
-        game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
     end,
 })
 
