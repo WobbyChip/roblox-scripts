@@ -906,7 +906,7 @@ local GUIData = (function()
 
         data.callback = function()
             if data.Callback then data.Callback(data.Holding) end
-        end)
+        end
 
         local guiObject = Execute:Clone()
         if data.Parent.Data.TextColor then guiObject.Label.TextColor3 = data.Parent.Data.TextColor end
