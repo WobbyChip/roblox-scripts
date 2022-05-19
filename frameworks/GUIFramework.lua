@@ -852,6 +852,7 @@ local GUIData = (function()
         guiData.Open = false
         guiData.baseColor = colors.TextDisabled
 
+        gui:createList(guiObject, guiData)
         gui:setText(guiObject.Label, data.Name)
         gui:textColorOnHover(guiObject.Label, guiData)
 
