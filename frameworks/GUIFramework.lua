@@ -910,6 +910,7 @@ local GUIData = (function()
         end)
 
         dataArray.Hide = function(hidden)
+            print("Hiding ", guiObject.Label.Text)
             if guiObject.Visible == hidden then return end
             guiObject.Visible = hidden
             if hidden then
