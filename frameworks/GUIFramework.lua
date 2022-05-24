@@ -910,6 +910,7 @@ local GUIData = (function()
         end)
 
         dataArray.Hide = function(hidden)
+            if guiObject.Visible == hidden then return end
             guiObject.Visible = hidden
             if hidden then
                 data.Parent.Data.Update(-1)
