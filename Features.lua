@@ -5,9 +5,11 @@ local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyCh
 local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
 local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 
+local Players = game:GetService("Players")
+
 --GUI Container
 local FeaturesGUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.33",
+    Name = "Features - V 1.34",
 })
 
 
@@ -129,13 +131,36 @@ local Teleports = FeaturesGUI.self:create("Box", {
 
 local TeleportsList = Teleports.self:create("HolderBox", {
     Name = "Teleports",
-    FolderName = "Teleports",
-    FileName = game.PlaceId .. ".json",
+    FileName = "Teleports/" .. game.PlaceId .. ".json",
     TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
         local enabled = _Flight.Options.Enabled
         _Flight.toggleFly(false)
-        _Teleport.teleportTo(_Teleport.decodeCFrame(value))
+        _Teleport.tpToLocation(_Teleport.decodeCFrame(value))
+        _Flight.toggleFly(enabled)
+    end,
+})
+
+local PlayersList = Teleports.self:create("HolderBox", {
+    Name = "Players",
+    FileName = "Teleports/Players.json",
+    TextColor = Color3.fromRGB(0, 255, 255),
+    Callback = function(value)
+        local enabled = _Flight.Options.Enabled
+        _Flight.toggleFly(false)
+        _Teleport.tpToPlayer(value)
+        _Flight.toggleFly(enabled)
+    end,
+})
+
+local AllPlayersList = Teleports.self:create("HolderBox", {
+    Name = "Players All",
+    DontSave = true,
+    TextColor = Color3.fromRGB(0, 255, 255),
+    Callback = function(value)
+        local enabled = _Flight.Options.Enabled
+        _Flight.toggleFly(false)
+        _Teleport.tpToPlayer(value)
         _Flight.toggleFly(enabled)
     end,
 })
@@ -144,10 +169,66 @@ local TeleportsNew = Teleports.self:create("Input", {
     Name = "Create New",
     Default = "Location 1",
     Callback = function(value)
-        TeleportsList.self:create("Holder", {
+        if string.sub(value, 1, 1) == "@" then
+            PlayersList.self:create("Holder", {
+                UUID = _UUID.generateUUID(),
+                Name = string.sub(value, 2),
+                Holding = string.sub(value, 2),
+            })
+        else
+            TeleportsList.self:create("Holder", {
+                UUID = _UUID.generateUUID(),
+                Name = value,
+                Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
+            })
+        end
+    end,
+})
+
+local players = {}
+
+Players.PlayerAdded:Connect(function(player)
+    if (players[player.UserId]) then
+        players[player.UserId].self:hide(false)
+        return
+    end
+
+    players[player.UserId] = AllPlayersList.self:create("Holder", {
+        UUID = _UUID.generateUUID(),
+        Name = player.Name .. " (" .. player.DisplayName .. ")"
+        Holding = player.Name
+    })
+end)
+ 
+Players.PlayerRemoving:Connect(function(player)
+	if (players[player.UserId]) then
+        players[player.UserId].self:hide(true)
+    end
+end)
+
+
+--Messages
+local Messages = FeaturesGUI.self:create("Box", {
+    Name = "Messages",
+})
+
+local MessagesList = Messages.self:create("HolderBox", {
+    Name = "Messages",
+    FileName = "Messages/Messages.json",
+    TextColor = Color3.fromRGB(0, 255, 255),
+    Callback = function(value)
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(value, "All")
+    end,
+})
+
+local MessagesNew = Messages.self:create("Input", {
+    Name = "Create New",
+    Default = "L Bozo",
+    Callback = function(value)
+        MessagesList.self:create("Holder", {
             UUID = _UUID.generateUUID(),
             Name = value,
-            Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
+            Holding = value,
         })
     end,
 })

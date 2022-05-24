@@ -2,6 +2,23 @@
 local writefile = writefile or function() end
 local readfile = readfile or function() end
 
+local writef = function(path, data)
+    path = string.gsub(path, "\\", "/")
+    local s = ""
+
+    for token in string.gmatch(path, "[^/]+") do
+       makefolder(s)
+       if s ~= "" then s = s .. "/" end
+       s = s .. token
+    end
+
+    writefile(s, data)
+end
+
+local safedel = function(path)
+    pcall(function() delfolder(path) end)
+end
+
 local GUIData = (function()
     -- Variables
     local screenGui = (script:FindFirstChild("ScreenGui")) or game:GetObjects("rbxassetid://2718157603")[1]:FindFirstChild("ScreenGui", true)
@@ -16,6 +33,7 @@ local GUIData = (function()
     local Toggle = Opt.Toggle
     local Mods = screenGui.Mods
     local ModLabel = Mods.Example
+    local SaveDir = "WobbyChip"
 
     local TextService = game:GetService("TextService")
     local UserInputService = game:GetService("UserInputService")
@@ -46,12 +64,11 @@ local GUIData = (function()
 
     table.insert(onSave, function()
         local JSONData = HttpService:JSONEncode(saveData)
-        makefolder("WobbyChip")
-        writefile("WobbyChip/GUI.json", JSONData)
+        writef(SaveDir .. "/GUI.json", JSONData)
     end)
 
     pcall(function()
-        local JSONData = readfile("WobbyChip/GUI.json")
+        local JSONData = readfile(SaveDir .. "/GUI.json")
         if JSONData then
             local LUAData = HttpService:JSONDecode(JSONData)
             saveData.Options = LUAData.Options
@@ -870,7 +887,7 @@ local GUIData = (function()
     end
 
     function lib.Holder(data, dataArray)
-        if not data.Parent.Data.Config[data.UUID] then
+        if not data.DontSave and not data.Parent.Data.Config[data.UUID] then
             data.Parent.Data.Config[data.UUID] = {
                 Name = data.Name,
                 Holding = data.Holding,
@@ -894,7 +911,7 @@ local GUIData = (function()
         end)
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
-            data.Parent.Data.Config[data.UUID] = nil
+            if not data.DontSave then data.Parent.Data.Config[data.UUID] = nil end
             data.Parent.Data.Update(-1)
             guiObject.Visible = false
         end)
@@ -915,7 +932,7 @@ local GUIData = (function()
         local guiData = {}
         dataArray.Data.Config = {}
         dataArray.Data.TextColor = data.TextColor
-        dataArray.Data.Count = 0;
+        dataArray.Data.ItemCount = 0;
         dataArray.Holders = {}
 
         guiData.ySize = 0
@@ -923,9 +940,9 @@ local GUIData = (function()
         guiData.baseColor = colors.TextEnabled
 
         dataArray.Data.Update = function(num)
-            dataArray.Data.Count = dataArray.Data.Count + num
-            guiObject.Dropdown.Visible = (dataArray.Data.Count > 0)
-            if guiData.Open then guiData.Open = (dataArray.Data.Count > 0) end
+            dataArray.Data.ItemCount = dataArray.Data.ItemCount + num
+            guiObject.Dropdown.Visible = (dataArray.Data.ItemCount > 0)
+            if guiData.Open then guiData.Open = (dataArray.Data.ItemCount > 0) end
             if guiData.Open then
                 guiObject.Dropdown.Image = "rbxassetid://3559638428"
             else
@@ -934,16 +951,17 @@ local GUIData = (function()
         end
 
         pcall(function()
-            local JSONData = readfile("WobbyChip/" .. data.FolderName .. "/" .. data.FileName)
+            if data.DontSave then return end
+            local JSONData = readfile(SaveDir .. "/" .. data.FileName)
             if JSONData then dataArray.Data.Config = HttpService:JSONDecode(JSONData) end
         end)
 
         table.insert(onSave, function()
-            if dataArray.Data.Count == 0 then return end
+            if data.DontSave then return end
+            safedel(SaveDir .. "/" .. data.FileName)
+            if dataArray.Data.ItemCount == 0 then return end
             local JSONData = HttpService:JSONEncode(dataArray.Data.Config)
-            makefolder("WobbyChip")
-            makefolder("WobbyChip/" .. data.FolderName)
-            writefile("WobbyChip/" .. data.FolderName .. "/" .. data.FileName, JSONData)
+            writef(SaveDir .. "/" .. data.FileName, JSONData)
         end)
 
         for key, value in pairs(dataArray.Data.Config) do
@@ -1061,6 +1079,14 @@ local GUIData = (function()
     end
 
     -- UI Creation Library
+    function gui.hide(self, hidden)
+        if self == gui then
+            self = settingsArray
+        end
+
+        self[1].Visible = hidden;
+    end
+
     function gui.create(self, guiType, data)
         if self == gui then
             self = settingsArray
@@ -1083,7 +1109,7 @@ local GUIData = (function()
 
         local dataArray = {}
         local objectArray = {}
-        local selfArray = {dataArray, objectArray, create = gui.create, callback = data.Callback}
+        local selfArray = {dataArray, objectArray, create = gui.create, callback = data.Callback, hide = gui.hide}
         dataArray.Name = data.Name
         dataArray.Data = data
         dataArray.Object = lib[guiType](data, dataArray)
