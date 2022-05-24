@@ -201,6 +201,7 @@ Players.PlayerAdded:Connect(function(player)
     if (players[player.UserId]) then
         players[player.UserId].self[1].Object.Visible = true
         players[player.UserId].self[1].Data.Parent.Data.Update(1);
+        return
     end
 
     players[player.UserId] = AllPlayersList.self:create("Holder", {
