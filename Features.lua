@@ -108,7 +108,7 @@ local GUI = FeaturesGUI.self:create("Box", {
 })
 
 local GUIVisibility = GUI.self:create("Toggle", {
-    Name = "Enabled",
+    Name = "GUI Enabled",
     Default = true,
     Hotkey = tostring(Enum.KeyCode.RightControl),
     Hint = "The GUI visibility",
