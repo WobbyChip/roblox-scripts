@@ -909,11 +909,13 @@ local GUIData = (function()
             gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
         end)
 
-        guiObject.Indicator.MouseButton1Down:Connect(function()
+        dataArray.Remove = function()
             data.Parent.Data.Config[data.UUID] = nil
             data.Parent.Data.Update(-1)
             guiObject.Visible = false
-        end)
+        end
+
+        guiObject.Indicator.MouseButton1Down:Connect(dataArray.Remove)
 
         guiObject.Label.MouseButton1Down:Connect(function()
             if data.Callback then data.Callback(data.Holding) end
