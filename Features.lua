@@ -187,6 +187,14 @@ local TeleportsNew = Teleports.self:create("Input", {
 
 local players = {}
 
+for _, player in pairs(Players:GetPlayers()) do
+    players[player.UserId] = AllPlayersList.self:create("Holder", {
+        UUID = _UUID.generateUUID(),
+        Name = player.Name .. " (" .. player.DisplayName .. ")"
+        Holding = player.Name,
+    })
+end
+
 Players.PlayerAdded:Connect(function(player)
     if (players[player.UserId]) then
         players[player.UserId].self:hide(false)
