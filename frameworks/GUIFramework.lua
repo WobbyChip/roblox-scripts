@@ -1154,7 +1154,7 @@ local GUIData = (function()
         if gameProcessed then return end
         for id, key in pairs(saveData.Hotkeys) do
             if key == tostring(input.KeyCode) then
-                hotkeyFunctions[id]()
+                if hotkeyFunctions[id] then hotkeyFunctions[id]() end
             end
         end
     end)
