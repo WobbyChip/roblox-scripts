@@ -887,7 +887,7 @@ local GUIData = (function()
     end
 
     function lib.Holder(data, dataArray)
-        if not data.DontSave and not data.Parent.Data.Config[data.UUID] then
+        if not data.Parent.Data.Config[data.UUID] then
             data.Parent.Data.Config[data.UUID] = {
                 Name = data.Name,
                 Holding = data.Holding,
@@ -911,7 +911,7 @@ local GUIData = (function()
         end)
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
-            if not data.DontSave then data.Parent.Data.Config[data.UUID] = nil end
+            data.Parent.Data.Config[data.UUID] = nil
             data.Parent.Data.Update(-1)
             guiObject.Visible = false
         end)
