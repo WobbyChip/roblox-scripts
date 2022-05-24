@@ -197,9 +197,7 @@ end
 
 Players.PlayerAdded:Connect(function(player)
     if (players[player.UserId]) then
-        players[player.UserId].self[1].Object.Visible = true
-        players[player.UserId].self[1].Data.Parent.Data.Update(1)
-        return
+        return players[player.UserId].self[1].Hide(false);
     end
 
     players[player.UserId] = AllPlayersList.self:create("Holder", {
@@ -211,7 +209,7 @@ end)
  
 Players.PlayerRemoving:Connect(function(player)
 	if (players[player.UserId]) then
-        players[player.UserId].self[1].Remove();
+        players[player.UserId].self[1].Hide(true);
     end
 end)
 
