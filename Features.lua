@@ -188,11 +188,13 @@ local TeleportsNew = Teleports.self:create("Input", {
 local players = {}
 
 for _, player in pairs(Players:GetPlayers()) do
-    players[player.UserId] = AllPlayersList.self:create("Holder", {
-        UUID = _UUID.generateUUID(),
-        Name = player.Name .. " (" .. player.DisplayName .. ")",
-        Holding = player.Name,
-    })
+    if player.UserId ~= Players.LocalPlayer.UserId then
+        players[player.UserId] = AllPlayersList.self:create("Holder", {
+            UUID = _UUID.generateUUID(),
+            Name = player.Name .. " (" .. player.DisplayName .. ")",
+            Holding = player.Name,
+        })
+    end
 end
 
 Players.PlayerAdded:Connect(function(player)
