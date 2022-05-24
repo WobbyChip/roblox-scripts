@@ -1084,7 +1084,7 @@ local GUIData = (function()
             self = settingsArray
         end
 
-        self[1].Visible = hidden;
+        self[1].Object.Visible = hidden;
     end
 
     function gui.create(self, guiType, data)
