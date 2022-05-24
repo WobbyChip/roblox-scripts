@@ -196,7 +196,7 @@ Players.PlayerAdded:Connect(function(player)
     players[player.UserId] = AllPlayersList.self:create("Holder", {
         UUID = _UUID.generateUUID(),
         Name = player.Name .. " (" .. player.DisplayName .. ")"
-        Holding = player.Name
+        Holding = player.Name,
     })
 end)
  
