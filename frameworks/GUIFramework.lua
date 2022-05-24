@@ -909,17 +909,6 @@ local GUIData = (function()
             gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
         end)
 
-        dataArray.Hide = function(hidden)
-            print("Hiding ", guiObject.Label.Text)
-            if guiObject.Visible == hidden then return end
-            guiObject.Visible = hidden
-            if hidden then
-                data.Parent.Data.Update(-1)
-            else
-                data.Parent.Data.Update(1)
-            end
-        end
-
         guiObject.Indicator.MouseButton1Down:Connect(function()
             data.Parent.Data.Config[data.UUID] = nil
             data.Parent.Data.Update(-1)
