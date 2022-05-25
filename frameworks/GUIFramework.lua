@@ -931,7 +931,7 @@ local GUIData = (function()
         local guiData = {}
         dataArray.Data.Config = {}
         dataArray.Data.TextColor = data.TextColor
-        dataArray.Data.ItemCount = 0;
+        dataArray.Data.ItemCount = 0
         dataArray.Holders = {}
 
         guiData.ySize = 0
@@ -1083,7 +1083,7 @@ local GUIData = (function()
             self = settingsArray
         end
 
-        self[1].Object.Visible = hidden;
+        self[1].Object.Visible = hidden
     end
 
     function gui.create(self, guiType, data)

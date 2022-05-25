@@ -199,8 +199,9 @@ end
 
 Players.PlayerAdded:Connect(function(player)
     if (players[player.UserId]) then
+        if players[player.UserId].self[1].Object.Visible then return end
         players[player.UserId].self[1].Object.Visible = true
-        players[player.UserId].self[1].Data.Parent.Data.Update(1);
+        players[player.UserId].self[1].Data.Parent.Data.Update(1)
         return
     end
 
@@ -213,8 +214,9 @@ end)
  
 Players.PlayerRemoving:Connect(function(player)
 	if (players[player.UserId]) then
+        if not players[player.UserId].self[1].Object.Visible then return end
         players[player.UserId].self[1].Object.Visible = false
-        players[player.UserId].self[1].Data.Parent.Data.Update(-1);
+        players[player.UserId].self[1].Data.Parent.Data.Update(-1)
     end
 end)
 
