@@ -101,13 +101,8 @@ local XrayTransparency = Xray.self:create("Number", {
     end,
 })
 
-
 --GUI
-local GUI = FeaturesGUI.self:create("Box", {
-    Name = "GUI",
-})
-
-local GUIVisibility = GUI.self:create("Toggle", {
+local GUIEnabled = Features.self:create("Toggle", {
     Name = "GUI Enabled",
     Default = true,
     Hotkey = tostring(Enum.KeyCode.RightControl),
