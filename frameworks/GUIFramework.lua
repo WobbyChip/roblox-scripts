@@ -785,7 +785,8 @@ local GUIData = (function()
 
     function lib.Toggle(data, dataArray)
         local guiObject = Toggle:Clone()
-        local Value = gui:unpack(saveData.Options[data.ID].Value, "boolean") or data.Default or false
+        --local Value = gui:unpack(saveData.Options[data.ID].Value, "boolean") or data.Default or false
+        local Value = data.Default or false
         local guiData = {}
 
         local modFrame = ModLabel:Clone()
@@ -820,7 +821,7 @@ local GUIData = (function()
                 data.Callback(Value)
             end
 
-            saveData.Options[data.ID].Value = gui:pack(Value)
+            --saveData.Options[data.ID].Value = gui:pack(Value)
             modFrame.Visible = Value
         end
 
