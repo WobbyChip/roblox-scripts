@@ -124,6 +124,23 @@ local GUIVisibility = GUI.self:create("Toggle", {
 })
 
 
+--Drop All Items
+local DropItems = Features.self:create("Button", {
+    Name = "Drop All Items",
+    Callback = function()
+        print("Drop All Items")
+        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetDescendants()) do
+            if v:IsA("Tool")  then
+                wait(0.1)
+                v.Parent = game.Players.LocalPlayer.Character
+                wait(0.1)
+                v.Parent = game.Workspace
+            end
+        end
+    end,
+})
+
+
 --Teleports
 local Teleports = FeaturesGUI.self:create("Box", {
     Name = "Teleports",

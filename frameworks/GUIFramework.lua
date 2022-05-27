@@ -850,6 +850,26 @@ local GUIData = (function()
         return guiObject
     end
 
+    function lib.Button(data, dataArray)
+        local guiObject = Toggle:Clone()
+        local guiData = {}
+        guiObject.Name = data.Name
+
+        gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
+        guiObject.Label.MouseButton1Down:Connect(function() data.Callback() end)
+
+        guiData.ySize = 0
+        guiData.Open = false
+        guiData.baseColor = colors.TextDisabled
+
+        gui:createList(guiObject, guiData)
+        gui:setText(guiObject.Label, data.Name)
+        gui:textColorOnHover(guiObject.Label, guiData)
+        data.callback = data.Callback
+
+        return guiObject
+    end
+
     function lib.Input(data, dataArray)
         local guiObject = Toggle:Clone()
         local guiData = {}
@@ -1114,7 +1134,7 @@ local GUIData = (function()
         dataArray.Object = lib[guiType](data, dataArray)
         dataArray.self = selfArray
 
-        if guiType == "Toggle" then
+        if (guiType == "Toggle") or (guiType == "Button") then
             lib.Hotkey(data, dataArray)
         end
 
