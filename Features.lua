@@ -128,7 +128,6 @@ local GUIVisibility = GUI.self:create("Toggle", {
 local DropItems = Features.self:create("Button", {
     Name = "Drop All Items",
     Callback = function()
-        print("Drop All Items")
         for i, v in pairs(game.Players.LocalPlayer.Backpack:GetDescendants()) do
             if v:IsA("Tool")  then
                 wait(0.1)
@@ -137,6 +136,15 @@ local DropItems = Features.self:create("Button", {
                 v.Parent = game.Workspace
             end
         end
+    end,
+})
+
+
+--Suicide
+local Suicide = Features.self:create("Button", {
+    Name = "Suicide",
+    Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.Health = 0
     end,
 })
 

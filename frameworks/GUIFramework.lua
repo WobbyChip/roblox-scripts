@@ -1135,6 +1135,7 @@ local GUIData = (function()
         dataArray.self = selfArray
 
         if (guiType == "Toggle") or (guiType == "Button") then
+            dataArray.Object.Dropdown.Visible = true
             lib.Hotkey(data, dataArray)
         end
 
