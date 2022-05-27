@@ -876,7 +876,7 @@ local GUIData = (function()
 
         local createValue = function()
             if data.Callback then
-                local text = dataArray.TextBox.Text:sub(1, 20)
+                local text = dataArray.TextBox.Text:sub(1, 100)
                 if not (text == "") then data.Callback(text) end
             end
         end
