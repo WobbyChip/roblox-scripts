@@ -997,6 +997,7 @@ local GUIData = (function()
             })
         end
 
+        dataArray.Data.Config = {}
         guiObject.Name = data.Name
         gui.tween(guiObject.Indicator, "Sine", "Out", .25, {Size = UDim2.new(0, 0, 0, 25)})
 
