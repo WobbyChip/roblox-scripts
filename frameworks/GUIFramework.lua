@@ -817,12 +817,12 @@ local GUIData = (function()
                 guiData.baseColor = colors.TextDisabled
             end
 
+            --saveData.Options[data.ID].Value = gui:pack(Value)
+            modFrame.Visible = Value
+
             if data.Callback then
                 data.Callback(Value)
             end
-
-            --saveData.Options[data.ID].Value = gui:pack(Value)
-            modFrame.Visible = Value
         end
 
         guiObject.MouseEnter:Connect(function()

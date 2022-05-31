@@ -59,6 +59,7 @@ local Clicker = Features.self:create("Toggle", {
     Name = "Clicker",
     Default = false,
     Hint = "Toggle clicker",
+    Hotkey = tostring(Enum.KeyCode.P),
     Callback = function(enabled)
         _Clicker.toggleClicker(enabled)
     end,
@@ -81,6 +82,7 @@ local ClickerInterval = Clicker.self:create("Number", {
 local Xray = Features.self:create("Toggle", {
     Name = "Xray",
     Default = false,
+    Hint = "Toggle Xray",
     Hotkey = tostring(Enum.KeyCode.Z),
     Callback = function(enabled)
         _Xray.toggleXray(enabled)
