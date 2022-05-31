@@ -1,4 +1,3 @@
-local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
 local _Clicker = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Clicker.lua"))()
 local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
@@ -9,7 +8,7 @@ local Players = game:GetService("Players")
 
 --GUI Container
 local FeaturesGUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.35",
+    Name = "Features - V 1.36",
 })
 
 
@@ -191,13 +190,11 @@ local TeleportsNew = Teleports.self:create("Input", {
     Callback = function(value)
         if string.sub(value, 1, 1) == "@" then
             PlayersList.self:create("Holder", {
-                UUID = _UUID.generateUUID(),
                 Name = string.sub(value, 2),
                 Holding = string.sub(value, 2),
             })
         else
             TeleportsList.self:create("Holder", {
-                UUID = _UUID.generateUUID(),
                 Name = value,
                 Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
             })
@@ -210,7 +207,6 @@ local players = {}
 for _, player in pairs(Players:GetPlayers()) do
     if player.UserId ~= Players.LocalPlayer.UserId then
         players[player.UserId] = AllPlayersList.self:create("Holder", {
-            UUID = _UUID.generateUUID(),
             Name = player.Name .. " (" .. player.DisplayName .. ")",
             Holding = player.Name,
         })
@@ -226,7 +222,6 @@ Players.PlayerAdded:Connect(function(player)
     end
 
     players[player.UserId] = AllPlayersList.self:create("Holder", {
-        UUID = _UUID.generateUUID(),
         Name = player.Name .. " (" .. player.DisplayName .. ")",
         Holding = player.Name,
     })
@@ -260,7 +255,6 @@ local MessagesNew = Messages.self:create("Input", {
     Default = "L Bozo",
     Callback = function(value)
         MessagesList.self:create("Holder", {
-            UUID = _UUID.generateUUID(),
             Name = value,
             Holding = value,
         })

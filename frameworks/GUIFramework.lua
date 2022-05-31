@@ -1,4 +1,4 @@
---Literally stolen from OpenGui and upgraded
+local _UUID = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/UUID.lua"))()
 local writefile = writefile or function() end
 local readfile = readfile or function() end
 
@@ -907,12 +907,13 @@ local GUIData = (function()
     end
 
     function lib.Holder(data, dataArray)
-        if not data.Parent.Data.Config[data.UUID] then
-            data.Parent.Data.Config[data.UUID] = {
-                Name = data.Name,
-                Holding = data.Holding,
-            }
-        end
+        if not data.UUID then data.UUID = _UUID.generateUUID() end
+
+        table.insert(data.Parent.Data.Config, {
+            UUID = data.UUID,
+            Name = data.Name,
+            Holding = data.Holding,
+        })
 
         data.Parent.Data.Update(1)
 
@@ -931,7 +932,10 @@ local GUIData = (function()
         end)
 
         guiObject.Indicator.MouseButton1Down:Connect(function()
-            data.Parent.Data.Config[data.UUID] = nil
+            for i, value in ipairs(data.Parent.Data.Config) do
+                if (value.UUID == data.UUID) then table.remove(data.Parent.Data.Config, i) end
+            end
+
             data.Parent.Data.Update(-1)
             guiObject.Visible = false
         end)
@@ -984,9 +988,9 @@ local GUIData = (function()
             writef(SaveDir .. "/" .. data.FileName, JSONData)
         end)
 
-        for key, value in pairs(dataArray.Data.Config) do
+        for _, value in ipairs(dataArray.Data.Config) do
             table.insert(dataArray.Holders, {
-                UUID = key,
+                UUID = value.UUID,
                 Name = value.Name,
                 Holding = value.Holding,
                 Callback = data.Callback,
@@ -1114,7 +1118,7 @@ local GUIData = (function()
 
         data.ID = data.Name .. "_" .. (self[1].Name or "TOP")
 
-        if not saveData.Options[data.ID] then
+        if (not saveData.Options[data.ID]) and (guiType ~= "Holder") then
             saveData.Options[data.ID] = {}
         end
 
@@ -1122,7 +1126,7 @@ local GUIData = (function()
             self[1].Object.Dropdown.Visible = true
         end
 
-        if guiType == "Holder" then
+        if (guiType == "Holder") then
             data.Parent = self[1]
             data.Callback = self[1].Data.Callback
         end
@@ -1140,12 +1144,12 @@ local GUIData = (function()
             lib.Hotkey(data, dataArray)
         end
 
-        if guiType == "Input" then
+        if (guiType == "Input") then
             dataArray.Object.Dropdown.Visible = true
             dataArray.TextBox = lib.TextBox(data, dataArray)
         end
 
-        if guiType == "HolderBox" then
+        if (guiType == "HolderBox") then
             for _, holder in ipairs(dataArray.Holders) do
                 holder.Parent = dataArray
                 lib.Holder(holder, dataArray)
