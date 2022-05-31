@@ -67,7 +67,7 @@ local Clicker = Features.self:create("Toggle", {
 
 local ClickerInterval = Clicker.self:create("Number", {
     Name = "Interval",
-    Default = 1,
+    Default = 0.2,
     Min = 0.01,
     Max = 2,
     Round = 0.01,
