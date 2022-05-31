@@ -8,7 +8,7 @@ local Players = game:GetService("Players")
 
 --GUI Container
 local FeaturesGUI = _GUIData[1]:create("Container", {
-    Name = "Features - V 1.36",
+    Name = "Features - V 1.37",
 })
 
 
