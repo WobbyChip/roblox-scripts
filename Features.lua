@@ -121,7 +121,7 @@ local GUIEnabled = Features.self:create("Toggle", {
 
 
 --Drop All Items
-local DropItems = Features.self:create("Button", {
+Features.self:create("Button", {
     Name = "Drop All Items",
     Callback = function()
         for i, v in pairs(game.Players.LocalPlayer.Backpack:GetDescendants()) do
@@ -137,10 +137,36 @@ local DropItems = Features.self:create("Button", {
 
 
 --Suicide
-local Suicide = Features.self:create("Button", {
+Features.self:create("Button", {
     Name = "Suicide",
     Callback = function()
         game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    end,
+})
+
+
+--Join Emptiest Server
+Features.self:create("Button", {
+    Name = "Join Emptiest Server",
+    Callback = function()
+        local servers = {}
+        for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+            if ((type(v) == "table") and v.playing and (v.maxPlayers > v.playing) and (v.id ~= game.JobId)) then servers[#servers + 1] = v.id end
+        end
+        if (#servers > 0) then game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)]) end
+    end,
+})
+
+
+--Join Fullest Server
+Features.self:create("Button", {
+    Name = "Join Fullest Server",
+    Callback = function()
+        local servers = {}
+        for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Desc&limit=100")).data) do
+            if ((type(v) == "table") and v.playing and (v.maxPlayers > v.playing) and (v.id ~= game.JobId)) then servers[#servers + 1] = v.id end
+        end
+        if (#servers > 0) then game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)]) end
     end,
 })
 
@@ -262,3 +288,5 @@ local MessagesNew = Messages.self:create("Input", {
         })
     end,
 })
+
+return FeaturesGUI
