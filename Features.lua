@@ -29,7 +29,7 @@ local Flight = Features.self:create("Toggle", {
     end,
 })
 
-local FlightSpeed = Flight.self:create("Number", {
+Flight.self:create("Number", {
     Name = "Speed",
     Default = 15,
     Min = 0.1,
@@ -41,7 +41,7 @@ local FlightSpeed = Flight.self:create("Number", {
     end,
 })
 
-local FlightSpeed = Flight.self:create("Number", {
+Flight.self:create("Number", {
     Name = "Smoothness",
     Default = 0.2,
     Min = 0.1,
@@ -65,7 +65,7 @@ local Clicker = Features.self:create("Toggle", {
     end,
 })
 
-local ClickerInterval = Clicker.self:create("Number", {
+Clicker.self:create("Number", {
     Name = "Interval",
     Default = 0.2,
     Min = 0.01,
@@ -89,7 +89,7 @@ local Xray = Features.self:create("Toggle", {
     end,
 })
 
-local XrayTransparency = Xray.self:create("Number", {
+Xray.self:create("Number", {
     Name = "Transparency",
     Default = 0.5,
     Min = 0,
@@ -174,6 +174,15 @@ Features.self:create("Button", {
         until not cursor
 
         if (#servers > 0) then game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)]) end
+    end,
+})
+
+
+--Rejoin Server
+Features.self:create("Button", {
+    Name = "Rejoin Server",
+    Callback = function()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
     end,
 })
 
