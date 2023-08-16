@@ -1,15 +1,17 @@
 if (not game:IsLoaded()) then game.Loaded:Wait() end
+if (_WobbyChip) then return _WobbyChip end
 
-local _Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
-local _Clicker = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Clicker.lua"))()
-local _Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
-local _Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
-local _GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
+_WobbyChip = {}
+_WobbyChip._Flight = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Flight.lua"))()
+_WobbyChip._Clicker = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Clicker.lua"))()
+_WobbyChip._Xray = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Xray.lua"))()
+_WobbyChip._Teleport = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/modules/Teleport.lua"))()
+_WobbyChip._GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/frameworks/GUIFramework.lua"))()
 
 local Players = game:GetService("Players")
 
 --GUI Container
-local FeaturesGUI = _GUIData[1]:create("Container", {
+local FeaturesGUI = _WobbyChip._GUIData[1]:create("Container", {
     Name = "Features - V 1.39",
 })
 
@@ -27,7 +29,7 @@ local Flight = Features.self:create("Toggle", {
     Hotkey = tostring(Enum.KeyCode.X),
     Hint = "Toggle player flight",
     Callback = function(enabled)
-        _Flight.toggleFly(enabled)
+        _WobbyChip._Flight.toggleFly(enabled)
     end,
 })
 
@@ -39,7 +41,7 @@ Flight.self:create("Number", {
     Round = 0.1,
     Hint = "Flight speed",
     Callback = function(value)
-        _Flight.Options.Speed = value
+        _WobbyChip._Flight.Options.Speed = value
     end,
 })
 
@@ -51,7 +53,7 @@ Flight.self:create("Number", {
     Round = 0.01,
     Hint = "Smoothness of the interpolation",
     Callback = function(value)
-        _Flight.Options.Smoothness = value
+        _WobbyChip._Flight.Options.Smoothness = value
     end,
 })
 
@@ -63,7 +65,7 @@ local Clicker = Features.self:create("Toggle", {
     Hint = "Toggle clicker",
     Hotkey = tostring(Enum.KeyCode.P),
     Callback = function(enabled)
-        _Clicker.toggleClicker(enabled)
+        _WobbyChip._Clicker.toggleClicker(enabled)
     end,
 })
 
@@ -75,7 +77,7 @@ Clicker.self:create("Number", {
     Round = 0.01,
     Hint = "Clicker interval",
     Callback = function(value)
-        _Clicker.Options.Interval = value
+        _WobbyChip._Clicker.Options.Interval = value
     end,
 })
 
@@ -87,7 +89,7 @@ local Xray = Features.self:create("Toggle", {
     Hint = "Toggle Xray",
     Hotkey = tostring(Enum.KeyCode.Z),
     Callback = function(enabled)
-        _Xray.toggleXray(enabled)
+        _WobbyChip._Xray.toggleXray(enabled)
     end,
 })
 
@@ -99,8 +101,8 @@ Xray.self:create("Number", {
     Round = 0.01,
     Hint = "Xray transparency",
     Callback = function(value)
-        _Xray.Options.Transparency = value
-        _Xray.updateXray()
+        _WobbyChip._Xray.Options.Transparency = value
+        _WobbyChip._Xray.updateXray()
     end,
 })
 
@@ -111,13 +113,13 @@ local GUIEnabled = Features.self:create("Toggle", {
     Hotkey = tostring(Enum.KeyCode.RightControl),
     Hint = "The GUI visibility",
     Callback = function(enabled)
-        for _, frame in pairs(_GUIData[3]:GetChildren()) do
+        for _, frame in pairs(_WobbyChip._GUIData[3]:GetChildren()) do
             if frame:IsA("Frame") then
                 frame.Visible = enabled
             end
         end
-        _GUIData[3].Modal.Visible = enabled
-        _GUIData[3].Hint.Visible = false
+        _WobbyChip._GUIData[3].Modal.Visible = enabled
+        _WobbyChip._GUIData[3].Hint.Visible = false
     end,
 })
 
@@ -143,6 +145,24 @@ Features.self:create("Button", {
     Name = "Suicide",
     Callback = function()
         game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    end,
+})
+
+
+--Anti AFK Kick
+Features.self:create("Toggle", {
+    Name = "Anti AFK Kick",
+    Default = false,
+    Hint = "Disables Roblox 20m afk kick",
+    Callback = function(enabled)
+        _WobbyChip.AntiAfk = enabled;
+
+        while (_WobbyChip.AntiAfk) do
+            game:GetService('VirtualInputManager'):SendKeyEvent(true, Enum.KeyCode.Escape, false, x)
+            wait(Random.new():NextNumber(0.7, 0.9))
+            game:GetService('VirtualInputManager'):SendKeyEvent(true, Enum.KeyCode.Escape, false, x)
+            wait(Random.new():NextNumber(5.2, 5.4))
+        end
     end,
 })
 
@@ -199,10 +219,10 @@ local TeleportsList = Teleports.self:create("HolderBox", {
     FileName = "Teleports/" .. game.PlaceId .. ".json",
     TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
-        local enabled = _Flight.Options.Enabled
-        _Flight.toggleFly(false)
-        _Teleport.tpToLocation(_Teleport.decodeCFrame(value))
-        _Flight.toggleFly(enabled)
+        local enabled = _WobbyChip._Flight.Options.Enabled
+        _WobbyChip._Flight.toggleFly(false)
+        _WobbyChip._Teleport.tpToLocation(_WobbyChip._Teleport.decodeCFrame(value))
+        _WobbyChip._Flight.toggleFly(enabled)
     end,
 })
 
@@ -211,10 +231,10 @@ local PlayersList = Teleports.self:create("HolderBox", {
     FileName = "Teleports/Players.json",
     TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
-        local enabled = _Flight.Options.Enabled
-        _Flight.toggleFly(false)
-        _Teleport.tpToPlayer(value)
-        _Flight.toggleFly(enabled)
+        local enabled = _WobbyChip._Flight.Options.Enabled
+        _WobbyChip._Flight.toggleFly(false)
+        _WobbyChip._Teleport.tpToPlayer(value)
+        _WobbyChip._Flight.toggleFly(enabled)
     end,
 })
 
@@ -223,10 +243,10 @@ local AllPlayersList = Teleports.self:create("HolderBox", {
     DontSave = true,
     TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
-        local enabled = _Flight.Options.Enabled
-        _Flight.toggleFly(false)
-        _Teleport.tpToPlayer(value)
-        _Flight.toggleFly(enabled)
+        local enabled = _WobbyChip._Flight.Options.Enabled
+        _WobbyChip._Flight.toggleFly(false)
+        _WobbyChip._Teleport.tpToPlayer(value)
+        _WobbyChip._Flight.toggleFly(enabled)
     end,
 })
 
@@ -242,7 +262,7 @@ local TeleportsNew = Teleports.self:create("Input", {
         else
             TeleportsList.self:create("Holder", {
                 Name = value,
-                Holding = _Teleport.encodeCFrame(_Teleport.getLocation()),
+                Holding = _WobbyChip._Teleport.encodeCFrame(_WobbyChip._Teleport.getLocation()),
             })
         end
     end,
@@ -307,4 +327,48 @@ local MessagesNew = Messages.self:create("Input", {
     end,
 })
 
-return FeaturesGUI
+
+
+if (game.PlaceId == 1537690962) then
+    --BeeSwarmSimulator
+    local BeeSwarmSimulator = FeaturesGUI.self:create("Box", {
+        Name = "Bee Swarm Simulator",
+    })
+
+    --Collects collectables
+    BeeSwarmSimulator.self:create("Toggle", {
+        Name = "TP Collect collectables",
+        Default = false,
+        Hint = "Collects collectables (Might kick you)",
+        Callback = function(enabled)
+            _WobbyChip.BeeSwarm_bloop = enabled;
+            local enabled = _WobbyChip._Flight.Options.Enabled
+            _WobbyChip._Flight.toggleFly(true)
+
+            while (_WobbyChip.BeeSwarm_bloop) do
+                for i, v in pairs(game.Workspace.Collectibles:GetChildren()) do
+                    if ((v.Transparency <= 0.5) and ((v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100)) then
+                        local scframe = tostring(v.CFrame)
+                        while (v:IsDescendantOf(game.Workspace.Collectibles) and (tostring(v.CFrame) == scframe)) do
+                            _WobbyChip._Flight.toggleFly(false)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,0,0)
+                            _WobbyChip._Flight.toggleFly(true)
+                            wait(0.0010)
+                        end
+                    else
+                        v:Destroy()
+                    end
+
+                    wait(0.0010)
+                end
+                wait(0.0010)
+            end
+
+            _WobbyChip._Flight.toggleFly(enabled)
+        end,
+    })
+end
+
+
+
+return _WobbyChip
