@@ -42,6 +42,6 @@ BeeSwarmSimulator.self:create("Toggle", {
     Default = false,
     Hint = "Disable 3D rendering, for more fps and less power consumption",
     Callback = function(enabled)
-        game:GetService("RunService"):Set3dRenderingEnabled(enabled)
+        game:GetService("RunService"):Set3dRenderingEnabled(not enabled)
     end,
 })
