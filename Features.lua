@@ -11,13 +11,13 @@ _WobbyChip._GUIData = loadstring(game:HttpGet("https://raw.githubusercontent.com
 local Players = game:GetService("Players")
 
 --GUI Container
-local FeaturesGUI = _WobbyChip._GUIData[1]:create("Container", {
+_WobbyChip.FeaturesGUI = _WobbyChip._GUIData[1]:create("Container", {
     Name = "Features - V 1.39",
 })
 
 
 --Features
-local Features = FeaturesGUI.self:create("Box", {
+local Features = _WobbyChip.FeaturesGUI.self:create("Box", {
     Name = "Features",
 })
 
@@ -210,7 +210,7 @@ Features.self:create("Button", {
 
 
 --Teleports
-local Teleports = FeaturesGUI.self:create("Box", {
+local Teleports = _WobbyChip.FeaturesGUI.self:create("Box", {
     Name = "Teleports",
 })
 
@@ -303,7 +303,7 @@ end)
 
 
 --Messages
-local Messages = FeaturesGUI.self:create("Box", {
+local Messages = _WobbyChip.FeaturesGUI.self:create("Box", {
     Name = "Messages",
 })
 
@@ -327,48 +327,6 @@ local MessagesNew = Messages.self:create("Input", {
     end,
 })
 
-
-
-if (game.PlaceId == 1537690962) then
-    --BeeSwarmSimulator
-    local BeeSwarmSimulator = FeaturesGUI.self:create("Box", {
-        Name = "Bee Swarm Simulator",
-    })
-
-    --Collects collectables
-    BeeSwarmSimulator.self:create("Toggle", {
-        Name = "TP Collect collectables",
-        Default = false,
-        Hint = "Collects collectables (Might kick you)",
-        Callback = function(enabled)
-            _WobbyChip.BeeSwarm_bloop = enabled;
-            local enabled = _WobbyChip._Flight.Options.Enabled
-            _WobbyChip._Flight.toggleFly(true)
-
-            while (_WobbyChip.BeeSwarm_bloop) do
-                for i, v in pairs(game.Workspace.Collectibles:GetChildren()) do
-                    if ((v.Transparency <= 0.5) and ((v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100)) then
-                        local scframe = tostring(v.CFrame)
-                        while (v:IsDescendantOf(game.Workspace.Collectibles) and (tostring(v.CFrame) == scframe)) do
-                            _WobbyChip._Flight.toggleFly(false)
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame * CFrame.new(0,0,0)
-                            _WobbyChip._Flight.toggleFly(true)
-                            wait(0.0010)
-                        end
-                    else
-                        v:Destroy()
-                    end
-
-                    wait(0.0010)
-                end
-                wait(0.0010)
-            end
-
-            _WobbyChip._Flight.toggleFly(enabled)
-        end,
-    })
-end
-
-
+if (game.PlaceId == 1537690962) then loadstring(game:HttpGet("https://raw.githubusercontent.com/WobbyChip/roblox-scripts/master/games/BeeSwarmSimulator.lua"))() end
 
 return _WobbyChip
