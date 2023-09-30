@@ -312,7 +312,9 @@ local MessagesList = Messages.self:create("HolderBox", {
     FileName = "Messages/Messages.json",
     TextColor = Color3.fromRGB(0, 255, 255),
     Callback = function(value)
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(value, "All")
+        --game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(value, "All")
+        pcall(function() game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar.Text = value end)
+        pcall(function() firesignal(game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar.FocusLost, true) end)
     end,
 })
 
